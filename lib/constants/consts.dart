@@ -4,7 +4,7 @@ class CustomColors {
   static const Color scaffoldBG = Colors.black87;
   static const Color appBarBG = Colors.black;
   static const Color appBarText = Colors.white;
-  static const Color cardBG = Colors.black45;
+  static const Color cardBG = Color.fromARGB(255, 0, 60, 110);
   static const Color cardText = Colors.white;
   static const Color bgLight1 = Colors.black26;
   static const Color bgLight2 = Colors.black12;
@@ -20,11 +20,24 @@ class CustomColors {
   static const Color whiteSecondary = Colors.white10;
   static const Color borderColor = Color.fromARGB(255, 100, 0, 0);
 
-  static BoxDecoration cardDecoration = BoxDecoration(
+  static BoxDecoration cardDecoration1 = BoxDecoration(
     gradient: const RadialGradient(
       colors: [
         Color.fromARGB(255, 55, 55, 55),
         Color.fromARGB(255, 45, 45, 45),
+      ],
+    ),
+    border: Border.all(
+      color: CustomColors.borderColor,
+      width: 3,
+    ),
+    borderRadius: const BorderRadius.all(Radius.circular(20)),
+  );
+  static BoxDecoration cardDecoration2 = BoxDecoration(
+    gradient: const RadialGradient(
+      colors: [
+        Color.fromARGB(255, 45, 45, 45),
+        Color.fromARGB(255, 55, 55, 55),
       ],
     ),
     border: Border.all(

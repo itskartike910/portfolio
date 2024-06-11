@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio/constants/consts.dart';
+import 'package:portfolio/helpers/skills_card.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -47,7 +46,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
       ),
-      drawer: isMobile ? Drawer() : null,
+      drawer: isMobile ? const Drawer() : null,
       body: SafeArea(
         minimum: const EdgeInsets.all(10),
         child: SingleChildScrollView(
@@ -62,31 +61,109 @@ class _HomePageState extends State<HomePage> {
                   vertical: 20,
                   horizontal: 10,
                 ),
-                height: 400,
+                height: 450,
                 width: double.maxFinite,
-                decoration: CustomColors.cardDecoration,
-                child: Row(
+                decoration: CustomColors.cardDecoration1,
+                child: Column(
                   children: [
                     Expanded(
-                      child: Text(
-                        "Hello, I'm\nKartik Kumar",
-                        style: GoogleFonts.dancingScript(
-                          color: CustomColors.whitePrimary,
-                          fontWeight: FontWeight.w900,
-                          fontSize: isMobile ? 26 : 32,
-                        ),
-                        textAlign: TextAlign.center,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              "Hello, I'm\nKartik Kumar",
+                              style: GoogleFonts.dancingScript(
+                                color: CustomColors.whitePrimary,
+                                fontWeight: FontWeight.w900,
+                                fontSize: isMobile ? 26 : 32,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          Container(
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Color.fromARGB(255, 175, 175, 175),
+                                  blurRadius: 20,
+                                  spreadRadius: 2,
+                                  offset: Offset(0, 8),
+                                ),
+                              ],
+                            ),
+                            child: CircleAvatar(
+                              radius: isMobile ? 80 : 120,
+                              backgroundImage:
+                                  const AssetImage("assets/profile.jpg"),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    CircleAvatar(
-                      radius: isMobile ? 80 : 120,
-                      backgroundImage: const AssetImage("assets/profile.jpg"),
+                    Text(
+                      "A final year Computer Science student at NIT PATNA. ",
+                      style: GoogleFonts.playfairDisplay(
+                        color: CustomColors.whitePrimary,
+                        fontWeight: FontWeight.w600,
+                        fontSize: isMobile ? 15 : 18,
+                      ),
+                      softWrap: true,
+                      textAlign: TextAlign.left,
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Text(
+                "My Skills",
+                style: GoogleFonts.playfair(
+                  color: CustomColors.whitePrimary,
+                  fontWeight: FontWeight.w700,
+                  fontSize: isMobile ? 20 : 26,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              //SKILLS
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 20,
+                  horizontal: 10,
+                ),
+                // height: 400,
+                width: double.maxFinite,
+                decoration: CustomColors.cardDecoration2,
+                child: const Row(
+                  children: [
+                    Skills(
+                      skillName: "C++",
+                      iconPath: "assets/icons/c++.png",
+                    ),
+                    Skills(
+                      skillName: "C",
+                      iconPath: "assets/icons/c-.png",
+                    ),
+                    Skills(
+                      skillName: "MySQL",
+                      iconPath: "assets/icons/mysql.png",
+                    ),
+                    Skills(
+                      skillName: "Python",
+                      iconPath: "assets/icons/python.png",
+                    ),
+                    Skills(
+                      skillName: "Android",
+                      iconPath: "assets/icons/android.png",
+                    ),
+                    Skills(
+                      skillName: "Visual-Basic",
+                      iconPath: "assets/icons/visual-basic.png",
                     ),
                   ],
                 ),
               )
-              //SKILLS
-
               //PROJECTS
 
               //CONTACT
@@ -102,12 +179,13 @@ class ProjectCard extends StatelessWidget {
   final String title;
   final String description;
 
-  ProjectCard({required this.title, required this.description});
+  const ProjectCard(
+      {super.key, required this.title, required this.description});
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.symmetric(vertical: 10),
+      margin: const EdgeInsets.symmetric(vertical: 10),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
