@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio/constants/consts.dart';
 import 'package:portfolio/helpers/skills_card.dart';
+import 'package:portfolio/helpers/social_profile.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -55,30 +56,38 @@ class _HomePageState extends State<HomePage> {
             scrollDirection: Axis.vertical,
             padding: const EdgeInsets.symmetric(vertical: 10),
             children: [
-              //MAIN
+              //-----------------MAIN-----------------
+              Text(
+                "My Profile",
+                style: GoogleFonts.playfair(
+                  color: CustomColors.whitePrimary,
+                  fontWeight: FontWeight.w700,
+                  fontSize: isMobile ? 20 : 26,
+                ),
+                textAlign: TextAlign.center,
+              ),
               Container(
                 padding: const EdgeInsets.symmetric(
                   vertical: 20,
                   horizontal: 10,
                 ),
-                height: 450,
+                height: isMobile ? 600 : 450,
                 width: double.maxFinite,
                 decoration: CustomColors.cardDecoration1,
                 child: Column(
                   children: [
                     Expanded(
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Expanded(
-                            child: Text(
-                              "Hello, I'm\nKartik Kumar",
-                              style: GoogleFonts.dancingScript(
-                                color: CustomColors.whitePrimary,
-                                fontWeight: FontWeight.w900,
-                                fontSize: isMobile ? 26 : 32,
-                              ),
-                              textAlign: TextAlign.center,
+                          Text(
+                            "Hello, I'm\nKartik Kumar",
+                            style: GoogleFonts.dancingScript(
+                              color: CustomColors.whitePrimary,
+                              fontWeight: FontWeight.w900,
+                              fontSize: isMobile ? 26 : 32,
                             ),
+                            textAlign: TextAlign.center,
                           ),
                           Container(
                             decoration: const BoxDecoration(
@@ -111,12 +120,48 @@ class _HomePageState extends State<HomePage> {
                       softWrap: true,
                       textAlign: TextAlign.left,
                     ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      width: double.maxFinite - 20,
+                      decoration: CustomColors.cardDecoration1,
+                      child: const Wrap(
+                        alignment: WrapAlignment.center,
+                        runAlignment: WrapAlignment.spaceAround,
+                        children: [
+                          SocialProfile(
+                            profilName: "LinkedIn",
+                            iconPath: "assets/icons/linkedin.png",
+                            bgColor: Color.fromARGB(255, 0, 20, 125),
+                            txtColor: Colors.white,
+                            url:
+                                "https://www.linkedin.com/in/kartik-kumar-4277b4235/",
+                          ),
+                          SocialProfile(
+                            profilName: "LeetCode",
+                            iconPath: "assets/icons/leetcode.png",
+                            bgColor: Colors.black,
+                            txtColor: Colors.white,
+                            url: "https://leetcode.com/u/its_kartike/",
+                          ),
+                          SocialProfile(
+                            profilName: "CodeChef",
+                            iconPath: "assets/icons/codechef.jpg",
+                            bgColor: Colors.white,
+                            txtColor: Colors.black,
+                            url: "https://www.codechef.com/users/its_kartike",
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
               const SizedBox(
                 height: 20,
               ),
+              //---------------SKILLS---------------
               Text(
                 "My Skills",
                 style: GoogleFonts.playfair(
@@ -126,16 +171,16 @@ class _HomePageState extends State<HomePage> {
                 ),
                 textAlign: TextAlign.center,
               ),
-              //SKILLS
               Container(
                 padding: const EdgeInsets.symmetric(
-                  vertical: 20,
+                  vertical: 10,
                   horizontal: 10,
                 ),
-                // height: 400,
                 width: double.maxFinite,
                 decoration: CustomColors.cardDecoration2,
-                child: const Row(
+                child: const Wrap(
+                  alignment: WrapAlignment.center,
+                  runAlignment: WrapAlignment.spaceAround,
                   children: [
                     Skills(
                       skillName: "C++",
@@ -163,49 +208,56 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ],
                 ),
-              )
-              //PROJECTS
-
-              //CONTACT
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              //-------------------PROJECTS-------------------
+              Text(
+                "My Projects",
+                style: GoogleFonts.playfair(
+                  color: CustomColors.whitePrimary,
+                  fontWeight: FontWeight.w700,
+                  fontSize: isMobile ? 20 : 26,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 20,
+                  horizontal: 10,
+                ),
+                width: double.maxFinite,
+                decoration: CustomColors.cardDecoration1,
+                child: Wrap(),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              //------------------CONTACT--------------------
+              Text(
+                "Contact Me",
+                style: GoogleFonts.playfair(
+                  color: CustomColors.whitePrimary,
+                  fontWeight: FontWeight.w700,
+                  fontSize: isMobile ? 20 : 26,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 20,
+                  horizontal: 10,
+                ),
+                width: double.maxFinite,
+                decoration: CustomColors.cardDecoration2,
+                child: Wrap(),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class ProjectCard extends StatelessWidget {
-  final String title;
-  final String description;
-
-  const ProjectCard(
-      {super.key, required this.title, required this.description});
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.symmetric(vertical: 10),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 5),
-            Text(
-              description,
-              style: const TextStyle(
-                fontSize: 16,
-              ),
-            ),
-          ],
         ),
       ),
     );

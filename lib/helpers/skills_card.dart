@@ -23,13 +23,11 @@ class _SkillsState extends State<Skills> {
       margin: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
       child: Chip(
         avatar: widget.iconPath != null
-            ? ClipOval(
-                child: Image.asset(
-                  widget.iconPath!,
-                  width: 20.0,
-                  height: 20.0,
-                  fit: BoxFit.cover,
-                ),
+            ? Image.asset(
+                widget.iconPath!,
+                width: 20.0,
+                height: 20.0,
+                fit: BoxFit.cover,
               )
             : null,
         label: Text(
@@ -37,6 +35,7 @@ class _SkillsState extends State<Skills> {
           style: GoogleFonts.ubuntuMono(
             color: CustomColors.cardText,
             fontWeight: FontWeight.w700,
+            fontSize: 16,
           ),
         ),
         backgroundColor: CustomColors.cardBG,
