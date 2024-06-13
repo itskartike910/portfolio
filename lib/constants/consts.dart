@@ -18,7 +18,7 @@ class CustomColors {
   static const Color redSecondary = Colors.redAccent;
   static const Color whitePrimary = Colors.white;
   static const Color whiteSecondary = Colors.white10;
-  static const Color borderColor = Color.fromARGB(255, 125, 0, 0);
+  static const Color borderColor = Color.fromARGB(0, 0, 37, 106);
 
   static BoxDecoration cardDecoration1 = BoxDecoration(
     gradient: const RadialGradient(

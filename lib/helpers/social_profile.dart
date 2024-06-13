@@ -42,7 +42,7 @@ class _SocialProfileState extends State<SocialProfile> {
               : null,
           label: Text(
             widget.profilName,
-            style: GoogleFonts.ubuntuMono(
+            style: GoogleFonts.oswald(
               color: widget.txtColor,
               fontWeight: FontWeight.w700,
               fontSize: 18,
@@ -65,7 +65,7 @@ class _SocialProfileState extends State<SocialProfile> {
     if (widget.url != null) {
       final uri = Uri.parse(widget.url!);
       if (await canLaunchUrl(uri)) {
-        await launchUrl(uri);
+        await launchUrl(uri, mode: LaunchMode.externalApplication);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Could not launch ${widget.url}')),

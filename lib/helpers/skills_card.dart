@@ -2,32 +2,34 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio/constants/consts.dart';
 
-class Skills extends StatefulWidget {
+class SkillsCard extends StatefulWidget {
   final String skillName;
   final String? iconPath;
 
-  const Skills({
+  const SkillsCard({
     super.key,
     required this.skillName,
     this.iconPath,
   });
 
   @override
-  State<Skills> createState() => _SkillsState();
+  State<SkillsCard> createState() => _SkillsState();
 }
 
-class _SkillsState extends State<Skills> {
+class _SkillsState extends State<SkillsCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
       child: Chip(
         avatar: widget.iconPath != null
-            ? Image.asset(
-                widget.iconPath!,
-                width: 20.0,
-                height: 20.0,
-                fit: BoxFit.cover,
+            ? ClipOval(
+                child: Image.asset(
+                  widget.iconPath!,
+                  width: 20.0,
+                  height: 20.0,
+                  fit: BoxFit.cover,
+                ),
               )
             : null,
         label: Text(

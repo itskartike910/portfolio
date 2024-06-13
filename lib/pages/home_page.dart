@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio/constants/consts.dart';
-import 'package:portfolio/helpers/skills_card.dart';
-import 'package:portfolio/helpers/social_profile.dart';
+import 'package:portfolio/widgets/my_profile.dart';
+import 'package:portfolio/widgets/projects.dart';
+import 'package:portfolio/widgets/skills.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -13,6 +16,159 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool isMobile = false;
+  final myProfileKey = GlobalKey();
+  final skillKey = GlobalKey();
+  final projectKey = GlobalKey();
+  final contactMeKey = GlobalKey();
+  String resumeUrl =
+      "https://drive.google.com/file/d/1noAQJumuiq1fuSMwoQjZqQx2JNGKiEsd/view?usp=drive_link";
+  List<Widget> naveItem = [];
+
+  @override
+  void initState() {
+    super.initState();
+    naveItem = [
+      const SizedBox(
+        height: 10,
+        width: 10,
+      ),
+      ElevatedButton(
+        onPressed: () async {
+          final uri = Uri.parse(resumeUrl);
+          if (await canLaunchUrl(uri)) {
+            await launchUrl(uri, mode: LaunchMode.externalApplication);
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Could not launch $resumeUrl')),
+            );
+          }
+        },
+        style: const ButtonStyle(
+          elevation: MaterialStatePropertyAll(5.0),
+          shadowColor: MaterialStatePropertyAll(Colors.white),
+          overlayColor:
+              MaterialStatePropertyAll(Color.fromARGB(255, 100, 50, 0)),
+        ),
+        child: Text(
+          "My Resume",
+          style: GoogleFonts.ubuntu(
+            color: CustomColors.whitePrimary,
+            fontWeight: FontWeight.w500,
+            fontSize: 15,
+          ),
+        ),
+      ),
+      const SizedBox(
+        height: 10,
+        width: 10,
+      ),
+      ElevatedButton(
+        onPressed: () {
+          Scrollable.ensureVisible(
+            myProfileKey.currentContext!,
+            duration: const Duration(seconds: 1),
+          );
+        },
+        style: const ButtonStyle(
+          elevation: MaterialStatePropertyAll(5.0),
+          shadowColor: MaterialStatePropertyAll(Colors.white),
+          overlayColor:
+              MaterialStatePropertyAll(Color.fromARGB(255, 100, 50, 0)),
+        ),
+        child: Text(
+          "My Profile",
+          style: GoogleFonts.ubuntu(
+            color: CustomColors.whitePrimary,
+            fontWeight: FontWeight.w500,
+            fontSize: 15,
+          ),
+        ),
+      ),
+      const SizedBox(
+        height: 10,
+        width: 10,
+      ),
+      ElevatedButton(
+        onPressed: () {
+          Scrollable.ensureVisible(
+            skillKey.currentContext!,
+            duration: const Duration(seconds: 1),
+          );
+        },
+        style: const ButtonStyle(
+          elevation: MaterialStatePropertyAll(5.0),
+          shadowColor: MaterialStatePropertyAll(Colors.white),
+          overlayColor:
+              MaterialStatePropertyAll(Color.fromARGB(255, 100, 50, 0)),
+        ),
+        child: Text(
+          "Skills",
+          style: GoogleFonts.ubuntu(
+            color: CustomColors.whitePrimary,
+            fontWeight: FontWeight.w500,
+            fontSize: 15,
+          ),
+        ),
+      ),
+      const SizedBox(
+        height: 10,
+        width: 10,
+      ),
+      ElevatedButton(
+        onPressed: () {
+          Scrollable.ensureVisible(
+            projectKey.currentContext!,
+            duration: const Duration(seconds: 1),
+          );
+        },
+        style: const ButtonStyle(
+          elevation: MaterialStatePropertyAll(5.0),
+          shadowColor: MaterialStatePropertyAll(Colors.white),
+          overlayColor:
+              MaterialStatePropertyAll(Color.fromARGB(255, 100, 50, 0)),
+        ),
+        child: Text(
+          "Projects",
+          style: GoogleFonts.ubuntu(
+            color: CustomColors.whitePrimary,
+            fontWeight: FontWeight.w500,
+            fontSize: 15,
+          ),
+        ),
+      ),
+      const SizedBox(
+        height: 10,
+        width: 10,
+      ),
+      ElevatedButton(
+        onPressed: () {
+          Scrollable.ensureVisible(
+            contactMeKey.currentContext!,
+            duration: const Duration(seconds: 1),
+          );
+        },
+        style: const ButtonStyle(
+          elevation: MaterialStatePropertyAll(5.0),
+          shadowColor: MaterialStatePropertyAll(Colors.white),
+          overlayColor:
+              MaterialStatePropertyAll(Color.fromARGB(255, 100, 50, 0)),
+        ),
+        child: Text(
+          "Contact Me",
+          style: GoogleFonts.ubuntu(
+            color: CustomColors.whitePrimary,
+            fontWeight: FontWeight.w500,
+            fontSize: 15,
+          ),
+        ),
+      ),
+      const SizedBox(
+        height: 10,
+        width: 10,
+      ),
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     isMobile = MediaQuery.of(context).size.width > 700 ? false : true;
@@ -30,234 +186,95 @@ class _HomePageState extends State<HomePage> {
             fontSize: 28,
           ),
         ),
-        actions: isMobile
-            ? null
-            : [
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.home),
-                ),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.work),
-                ),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.contact_mail),
-                ),
-              ],
+        actions: isMobile ? null : naveItem,
       ),
-      drawer: isMobile ? const Drawer() : null,
+      drawer: isMobile
+          ? Drawer(
+              child: ListView(
+                children: naveItem,
+              ),
+            )
+          : null,
       body: SafeArea(
         minimum: const EdgeInsets.all(10),
-        child: SingleChildScrollView(
-          child: ListView(
-            shrinkWrap: true,
-            scrollDirection: Axis.vertical,
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            children: [
-              //-----------------MAIN-----------------
-              Text(
-                "My Profile",
-                style: GoogleFonts.playfair(
-                  color: CustomColors.whitePrimary,
-                  fontWeight: FontWeight.w700,
-                  fontSize: isMobile ? 20 : 26,
-                ),
-                textAlign: TextAlign.center,
+        child: ListView(
+          shrinkWrap: true,
+          scrollDirection: Axis.vertical,
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          children: [
+            //-----------------------MY_PROFILE--------------------
+            Text(
+              "My Profile",
+              key: myProfileKey,
+              style: GoogleFonts.playfair(
+                color: CustomColors.whitePrimary,
+                fontWeight: FontWeight.w700,
+                fontSize: isMobile ? 20 : 26,
               ),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 20,
-                  horizontal: 10,
-                ),
-                height: isMobile ? 600 : 450,
-                width: double.maxFinite,
-                decoration: CustomColors.cardDecoration1,
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Text(
-                            "Hello, I'm\nKartik Kumar",
-                            style: GoogleFonts.dancingScript(
-                              color: CustomColors.whitePrimary,
-                              fontWeight: FontWeight.w900,
-                              fontSize: isMobile ? 26 : 32,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                          Container(
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Color.fromARGB(255, 175, 175, 175),
-                                  blurRadius: 20,
-                                  spreadRadius: 2,
-                                  offset: Offset(0, 8),
-                                ),
-                              ],
-                            ),
-                            child: CircleAvatar(
-                              radius: isMobile ? 80 : 120,
-                              backgroundImage:
-                                  const AssetImage("assets/profile.jpg"),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Text(
-                      "A final year Computer Science student at NIT PATNA. ",
-                      style: GoogleFonts.playfairDisplay(
-                        color: CustomColors.whitePrimary,
-                        fontWeight: FontWeight.w600,
-                        fontSize: isMobile ? 15 : 18,
-                      ),
-                      softWrap: true,
-                      textAlign: TextAlign.left,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      width: double.maxFinite - 20,
-                      decoration: CustomColors.cardDecoration1,
-                      child: const Wrap(
-                        alignment: WrapAlignment.center,
-                        runAlignment: WrapAlignment.spaceAround,
-                        children: [
-                          SocialProfile(
-                            profilName: "LinkedIn",
-                            iconPath: "assets/icons/linkedin.png",
-                            bgColor: Color.fromARGB(255, 0, 20, 125),
-                            txtColor: Colors.white,
-                            url:
-                                "https://www.linkedin.com/in/kartik-kumar-4277b4235/",
-                          ),
-                          SocialProfile(
-                            profilName: "LeetCode",
-                            iconPath: "assets/icons/leetcode.png",
-                            bgColor: Colors.black,
-                            txtColor: Colors.white,
-                            url: "https://leetcode.com/u/its_kartike/",
-                          ),
-                          SocialProfile(
-                            profilName: "CodeChef",
-                            iconPath: "assets/icons/codechef.jpg",
-                            bgColor: Colors.white,
-                            txtColor: Colors.black,
-                            url: "https://www.codechef.com/users/its_kartike",
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+              textAlign: TextAlign.center,
+            ),
+            MyProfile(
+              isMobile: isMobile,
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+
+            //----------------------SKILLS--------------------------
+            Text(
+              "My Skills",
+              key: skillKey,
+              style: GoogleFonts.playfair(
+                color: CustomColors.whitePrimary,
+                fontWeight: FontWeight.w700,
+                fontSize: isMobile ? 20 : 26,
               ),
-              const SizedBox(
-                height: 20,
+              textAlign: TextAlign.center,
+            ),
+            const Skills(),
+            const SizedBox(
+              height: 20,
+            ),
+
+            //-------------------------PROJECTS-------------------------
+            Text(
+              "My Projects",
+              key: projectKey,
+              style: GoogleFonts.playfair(
+                color: CustomColors.whitePrimary,
+                fontWeight: FontWeight.w700,
+                fontSize: isMobile ? 20 : 26,
               ),
-              //---------------SKILLS---------------
-              Text(
-                "My Skills",
-                style: GoogleFonts.playfair(
-                  color: CustomColors.whitePrimary,
-                  fontWeight: FontWeight.w700,
-                  fontSize: isMobile ? 20 : 26,
-                ),
-                textAlign: TextAlign.center,
+              textAlign: TextAlign.center,
+            ),
+            Projects(),
+            const SizedBox(
+              height: 20,
+            ),
+            //------------------CONTACT--------------------
+            Text(
+              "Contact Me",
+              key: contactMeKey,
+              style: GoogleFonts.playfair(
+                color: CustomColors.whitePrimary,
+                fontWeight: FontWeight.w700,
+                fontSize: isMobile ? 20 : 26,
               ),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 10,
-                  horizontal: 10,
-                ),
-                width: double.maxFinite,
-                decoration: CustomColors.cardDecoration2,
-                child: const Wrap(
-                  alignment: WrapAlignment.center,
-                  runAlignment: WrapAlignment.spaceAround,
-                  children: [
-                    Skills(
-                      skillName: "C++",
-                      iconPath: "assets/icons/c++.png",
-                    ),
-                    Skills(
-                      skillName: "C",
-                      iconPath: "assets/icons/c-.png",
-                    ),
-                    Skills(
-                      skillName: "MySQL",
-                      iconPath: "assets/icons/mysql.png",
-                    ),
-                    Skills(
-                      skillName: "Python",
-                      iconPath: "assets/icons/python.png",
-                    ),
-                    Skills(
-                      skillName: "Android",
-                      iconPath: "assets/icons/android.png",
-                    ),
-                    Skills(
-                      skillName: "Visual-Basic",
-                      iconPath: "assets/icons/visual-basic.png",
-                    ),
-                  ],
-                ),
+              textAlign: TextAlign.center,
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(
+                vertical: 20,
+                horizontal: 10,
               ),
-              const SizedBox(
-                height: 20,
-              ),
-              //-------------------PROJECTS-------------------
-              Text(
-                "My Projects",
-                style: GoogleFonts.playfair(
-                  color: CustomColors.whitePrimary,
-                  fontWeight: FontWeight.w700,
-                  fontSize: isMobile ? 20 : 26,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 20,
-                  horizontal: 10,
-                ),
-                width: double.maxFinite,
-                decoration: CustomColors.cardDecoration1,
-                child: Wrap(),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              //------------------CONTACT--------------------
-              Text(
-                "Contact Me",
-                style: GoogleFonts.playfair(
-                  color: CustomColors.whitePrimary,
-                  fontWeight: FontWeight.w700,
-                  fontSize: isMobile ? 20 : 26,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 20,
-                  horizontal: 10,
-                ),
-                width: double.maxFinite,
-                decoration: CustomColors.cardDecoration2,
-                child: Wrap(),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-            ],
-          ),
+              width: double.maxFinite,
+              decoration: CustomColors.cardDecoration2,
+              child: Wrap(),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+          ],
         ),
       ),
     );
