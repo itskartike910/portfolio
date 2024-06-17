@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio/constants/consts.dart';
+import 'package:portfolio/helpers/project_card.dart';
 
 class Projects extends StatelessWidget {
   const Projects({super.key});
@@ -8,7 +9,7 @@ class Projects extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(
-        vertical: 20,
+        vertical: 10,
         horizontal: 10,
       ),
       width: double.maxFinite,
@@ -16,7 +17,15 @@ class Projects extends StatelessWidget {
       child: const Wrap(
         alignment: WrapAlignment.center,
         runAlignment: WrapAlignment.spaceAround,
-        children: [],
+        children: [
+          ProjectCard(
+            projectTitle: "ChatApp",
+            projectDescription:
+                "ChatBox is a real-time chat application built with Flutter and Firebase. It allows users to sign up, log in, chat with other users.",
+            projectUrl: "",
+            imagePath: "assets/profile.jpg",
+          ),
+        ],
       ),
     );
   }

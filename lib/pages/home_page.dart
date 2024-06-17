@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio/constants/consts.dart';
+import 'package:portfolio/widgets/contact_me.dart';
 import 'package:portfolio/widgets/my_profile.dart';
 import 'package:portfolio/widgets/projects.dart';
 import 'package:portfolio/widgets/skills.dart';
@@ -9,7 +9,6 @@ import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
-
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -197,84 +196,79 @@ class _HomePageState extends State<HomePage> {
           : null,
       body: SafeArea(
         minimum: const EdgeInsets.all(10),
-        child: ListView(
-          shrinkWrap: true,
-          scrollDirection: Axis.vertical,
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          children: [
-            //-----------------------MY_PROFILE--------------------
-            Text(
-              "My Profile",
-              key: myProfileKey,
-              style: GoogleFonts.playfair(
-                color: CustomColors.whitePrimary,
-                fontWeight: FontWeight.w700,
-                fontSize: isMobile ? 20 : 26,
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(
+            vertical: 15,
+            horizontal: 10,
+          ),
+          child: Column(
+            children: [
+              //-----------------------MY_PROFILE--------------------
+              Text(
+                "My Profile",
+                key: myProfileKey,
+                style: GoogleFonts.playfair(
+                  color: CustomColors.whitePrimary,
+                  fontWeight: FontWeight.w700,
+                  fontSize: isMobile ? 20 : 26,
+                ),
+                textAlign: TextAlign.center,
               ),
-              textAlign: TextAlign.center,
-            ),
-            MyProfile(
-              isMobile: isMobile,
-            ),
-            const SizedBox(
-              height: 20,
-            ),
+              MyProfile(
+                isMobile: isMobile,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
 
-            //----------------------SKILLS--------------------------
-            Text(
-              "My Skills",
-              key: skillKey,
-              style: GoogleFonts.playfair(
-                color: CustomColors.whitePrimary,
-                fontWeight: FontWeight.w700,
-                fontSize: isMobile ? 20 : 26,
+              //----------------------SKILLS--------------------------
+              Text(
+                "My Skills",
+                key: skillKey,
+                style: GoogleFonts.playfair(
+                  color: CustomColors.whitePrimary,
+                  fontWeight: FontWeight.w700,
+                  fontSize: isMobile ? 20 : 26,
+                ),
+                textAlign: TextAlign.center,
               ),
-              textAlign: TextAlign.center,
-            ),
-            const Skills(),
-            const SizedBox(
-              height: 20,
-            ),
+              const Skills(),
+              const SizedBox(
+                height: 20,
+              ),
 
-            //-------------------------PROJECTS-------------------------
-            Text(
-              "My Projects",
-              key: projectKey,
-              style: GoogleFonts.playfair(
-                color: CustomColors.whitePrimary,
-                fontWeight: FontWeight.w700,
-                fontSize: isMobile ? 20 : 26,
+              //------------------------PROJECTS-----------------------
+              Text(
+                "My Projects",
+                key: projectKey,
+                style: GoogleFonts.playfair(
+                  color: CustomColors.whitePrimary,
+                  fontWeight: FontWeight.w700,
+                  fontSize: isMobile ? 20 : 26,
+                ),
+                textAlign: TextAlign.center,
               ),
-              textAlign: TextAlign.center,
-            ),
-            Projects(),
-            const SizedBox(
-              height: 20,
-            ),
-            //------------------CONTACT--------------------
-            Text(
-              "Contact Me",
-              key: contactMeKey,
-              style: GoogleFonts.playfair(
-                color: CustomColors.whitePrimary,
-                fontWeight: FontWeight.w700,
-                fontSize: isMobile ? 20 : 26,
+              const Projects(),
+              const SizedBox(
+                height: 20,
               ),
-              textAlign: TextAlign.center,
-            ),
-            Container(
-              padding: const EdgeInsets.symmetric(
-                vertical: 20,
-                horizontal: 10,
+              //------------------------CONTACT-------------------------
+              Text(
+                "Contact Me",
+                key: contactMeKey,
+                style: GoogleFonts.playfair(
+                  color: CustomColors.whitePrimary,
+                  fontWeight: FontWeight.w700,
+                  fontSize: isMobile ? 20 : 26,
+                ),
+                textAlign: TextAlign.center,
               ),
-              width: double.maxFinite,
-              decoration: CustomColors.cardDecoration2,
-              child: Wrap(),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-          ],
+              ContactMe(isMobile: isMobile),
+              const SizedBox(
+                height: 20,
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -18,6 +18,7 @@ class MyProfile extends StatelessWidget {
       width: double.maxFinite,
       decoration: CustomColors.cardDecoration1,
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Expanded(
             child: Row(
