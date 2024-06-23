@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:portfolio/constants/consts.dart';
 import 'package:portfolio/helpers/skills_card.dart';
 
-class Skills extends StatelessWidget {
+class Skills extends StatefulWidget {
   const Skills({super.key});
 
+  @override
+  State<Skills> createState() => _SkillsState();
+}
+
+class _SkillsState extends State<Skills> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -12,7 +17,9 @@ class Skills extends StatelessWidget {
         vertical: 10,
         horizontal: 10,
       ),
-      width: double.maxFinite,
+      width: MediaQuery.of(context).size.width< 900
+          ? MediaQuery.of(context).size.width * 0.9
+          : MediaQuery.of(context).size.width * 0.4,
       decoration: CustomColors.cardDecoration2,
       child: const Wrap(
         alignment: WrapAlignment.center,
@@ -41,6 +48,10 @@ class Skills extends StatelessWidget {
           SkillsCard(
             skillName: "C",
             iconPath: "assets/icons/c-.png",
+          ),
+          SkillsCard(
+            skillName: "DSA",
+            iconPath: "assets/icons/programming.png",
           ),
           SkillsCard(
             skillName: "MySQL",

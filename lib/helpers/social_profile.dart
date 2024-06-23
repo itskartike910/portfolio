@@ -23,39 +23,48 @@ class SocialProfile extends StatefulWidget {
 }
 
 class _SocialProfileState extends State<SocialProfile> {
+  bool isHovering = false;
+
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 5.0),
-      child: InkWell(
-        onTap: _launchURL,
-        child: Chip(
-          avatar: widget.iconPath != null
-              ? ClipOval(
-                  child: Image.asset(
-                    widget.iconPath!,
-                    width: 20.0,
-                    height: 20.0,
-                    fit: BoxFit.cover,
-                  ),
-                )
-              : null,
-          label: Text(
-            widget.profilName,
-            style: GoogleFonts.oswald(
-              color: widget.txtColor,
-              fontWeight: FontWeight.w700,
-              fontSize: 18,
+      child: MouseRegion(
+        onEnter: (event) => setState(() => isHovering = true),
+        onExit: (event) => setState(() => isHovering = false),
+        cursor: SystemMouseCursors.click,
+        child: InkWell(
+          onTap: _launchURL,
+          child: Chip(
+            avatar: widget.iconPath != null
+                ? ClipOval(
+                    child: Image.asset(
+                      widget.iconPath!,
+                      width: 20.0,
+                      height: 20.0,
+                      fit: BoxFit.cover,
+                    ),
+                  )
+                : null,
+            label: Text(
+              widget.profilName,
+              style: GoogleFonts.oswald(
+                color: widget.txtColor,
+                fontWeight: FontWeight.w700,
+                fontSize: isHovering ? 19 : 18,
+              ),
             ),
+            backgroundColor:
+                isHovering ? Colors.yellow.withOpacity(0.75) : widget.bgColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 4.0, vertical: 4.0),
+            elevation: 6,
+            shadowColor: widget.bgColor,
+            visualDensity: VisualDensity.comfortable,
           ),
-          backgroundColor: widget.bgColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-          padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 4.0),
-          elevation: 6,
-          shadowColor: widget.bgColor,
-          visualDensity: VisualDensity.comfortable,
         ),
       ),
     );

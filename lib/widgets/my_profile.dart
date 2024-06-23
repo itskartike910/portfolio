@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio/constants/consts.dart';
 import 'package:portfolio/helpers/social_profile.dart';
+import 'package:portfolio/widgets/about_me.dart';
 
 class MyProfile extends StatelessWidget {
   final bool isMobile;
@@ -14,7 +15,7 @@ class MyProfile extends StatelessWidget {
         vertical: 20,
         horizontal: 10,
       ),
-      height: isMobile ? 600 : 450,
+      height: isMobile ? 800 : 550,
       width: double.maxFinite,
       decoration: CustomColors.cardDecoration1,
       child: Column(
@@ -53,23 +54,23 @@ class MyProfile extends StatelessWidget {
               ],
             ),
           ),
-          Text(
-            "B.Tech CSE (Final year) @ NIT Patna | Android App Developer | Building personal projects to hone my App Development, DSA & C++ skills.",
-            style: GoogleFonts.playfairDisplay(
-              color: CustomColors.whitePrimary,
-              fontWeight: FontWeight.w600,
-              fontSize: isMobile ? 15 : 18,
-            ),
-            softWrap: true,
-            textAlign: TextAlign.center,
-          ),
+          // Text(
+          //   "Final year student @ NIT PATNA | Programmer | Flutter App Developer | Summer Intern @ EISystems Technologies",
+          //   style: GoogleFonts.playfairDisplay(
+          //     color: CustomColors.whitePrimary,
+          //     fontWeight: FontWeight.w600,
+          //     fontSize: isMobile ? 15 : 18,
+          //   ),
+          //   softWrap: true,
+          //   textAlign: TextAlign.center,
+          // ),
           const SizedBox(
             height: 10,
           ),
           Container(
-            // width: double.maxFinite - 20,
+            margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 5),
             padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-            decoration: CustomColors.cardDecoration2,
+            decoration: CustomColors.cardDecoration3,
             child: const Wrap(
               alignment: WrapAlignment.center,
               runAlignment: WrapAlignment.spaceAround,
@@ -119,6 +120,9 @@ class MyProfile extends StatelessWidget {
                 ),
               ],
             ),
+          ),
+          AboutMe(
+            isMobile: isMobile,
           ),
         ],
       ),

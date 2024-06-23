@@ -47,4 +47,17 @@ class CustomColors {
     ),
     borderRadius: const BorderRadius.all(Radius.circular(20)),
   );
+  static BoxDecoration cardDecoration3 = BoxDecoration(
+    gradient: const RadialGradient(
+      colors: [
+        Color.fromARGB(255, 55, 55, 55),
+        Color.fromARGB(255, 60, 60, 60),
+      ],
+    ),
+    border: Border.all(
+      color: CustomColors.borderColor,
+      width: 3,
+    ),
+    borderRadius: const BorderRadius.all(Radius.circular(20)),
+  );
 }

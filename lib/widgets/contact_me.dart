@@ -62,6 +62,8 @@ class ContactMe extends StatelessWidget {
             height: 15,
           ),
           TextFormField(
+            maxLines: null,
+            selectionHeightStyle: BoxHeightStyle.max,
             decoration: InputDecoration(
               labelText: "Subject",
               hintText: "Enter Subject",
@@ -81,7 +83,7 @@ class ContactMe extends StatelessWidget {
             height: 15,
           ),
           TextFormField(
-            maxLines: null,
+            maxLines: 6,
             selectionHeightStyle: BoxHeightStyle.max,
             decoration: InputDecoration(
               labelText: "Message",

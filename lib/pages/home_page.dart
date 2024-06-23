@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio/constants/consts.dart';
 import 'package:portfolio/widgets/contact_me.dart';
+import 'package:portfolio/widgets/experience.dart';
 import 'package:portfolio/widgets/my_profile.dart';
 import 'package:portfolio/widgets/projects.dart';
 import 'package:portfolio/widgets/skills.dart';
@@ -17,6 +19,7 @@ class _HomePageState extends State<HomePage> {
   bool isMobile = false;
   final myProfileKey = GlobalKey();
   final skillKey = GlobalKey();
+  final experienceKey = GlobalKey();
   final projectKey = GlobalKey();
   final contactMeKey = GlobalKey();
   String resumeUrl =
@@ -76,6 +79,32 @@ class _HomePageState extends State<HomePage> {
         ),
         child: Text(
           "My Profile",
+          style: GoogleFonts.ubuntu(
+            color: CustomColors.whitePrimary,
+            fontWeight: FontWeight.w500,
+            fontSize: 15,
+          ),
+        ),
+      ),
+      const SizedBox(
+        height: 10,
+        width: 10,
+      ),
+      ElevatedButton(
+        onPressed: () {
+          Scrollable.ensureVisible(
+            experienceKey.currentContext!,
+            duration: const Duration(seconds: 1),
+          );
+        },
+        style: const ButtonStyle(
+          elevation: MaterialStatePropertyAll(5.0),
+          shadowColor: MaterialStatePropertyAll(Colors.white),
+          overlayColor:
+              MaterialStatePropertyAll(Color.fromARGB(255, 100, 50, 0)),
+        ),
+        child: Text(
+          "Experience",
           style: GoogleFonts.ubuntu(
             color: CustomColors.whitePrimary,
             fontWeight: FontWeight.w500,
@@ -175,7 +204,6 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: CustomColors.scaffoldBG,
       appBar: AppBar(
         backgroundColor: CustomColors.appBarBG,
-        centerTitle: true,
         title: Text(
           "Portfolio",
           textAlign: TextAlign.center,
@@ -185,6 +213,8 @@ class _HomePageState extends State<HomePage> {
             fontSize: 28,
           ),
         ),
+        elevation: 3,
+        shadowColor: Colors.grey,
         actions: isMobile ? null : naveItem,
       ),
       drawer: isMobile
@@ -196,6 +226,7 @@ class _HomePageState extends State<HomePage> {
           : null,
       body: SafeArea(
         minimum: const EdgeInsets.all(10),
+        maintainBottomViewPadding: true,
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(
             vertical: 15,
@@ -220,19 +251,50 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(
                 height: 20,
               ),
-
               //----------------------SKILLS--------------------------
-              Text(
-                "My Skills",
-                key: skillKey,
-                style: GoogleFonts.playfair(
-                  color: CustomColors.whitePrimary,
-                  fontWeight: FontWeight.w700,
-                  fontSize: isMobile ? 20 : 26,
-                ),
-                textAlign: TextAlign.center,
+              Wrap(
+                spacing: 10,
+                runSpacing: 10,
+                children: [
+                  Column(
+                    children: [
+                      Text(
+                        "Experience",
+                        key: experienceKey,
+                        style: GoogleFonts.playfair(
+                          color: CustomColors.whitePrimary,
+                          fontWeight: FontWeight.w700,
+                          fontSize: isMobile ? 20 : 26,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      Experience(
+                        isMobile: isMobile,
+                      ),
+                    ],
+                  ),
+                  isMobile
+                      ? const Text("")
+                      : const SizedBox(
+                          width: 20,
+                        ),
+                  Column(
+                    children: [
+                      Text(
+                        "My Skills",
+                        key: skillKey,
+                        style: GoogleFonts.playfair(
+                          color: CustomColors.whitePrimary,
+                          fontWeight: FontWeight.w700,
+                          fontSize: isMobile ? 20 : 26,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      const Skills(),
+                    ],
+                  ),
+                ],
               ),
-              const Skills(),
               const SizedBox(
                 height: 20,
               ),
