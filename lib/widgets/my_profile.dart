@@ -15,7 +15,7 @@ class MyProfile extends StatelessWidget {
         vertical: 20,
         horizontal: 10,
       ),
-      height: isMobile ? 800 : 550,
+      height: isMobile ? 850 : 550,
       width: double.maxFinite,
       decoration: CustomColors.cardDecoration1,
       child: Column(
@@ -68,7 +68,7 @@ class MyProfile extends StatelessWidget {
             height: 10,
           ),
           Container(
-            margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 5),
+            margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
             padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
             decoration: CustomColors.cardDecoration3,
             child: const Wrap(
@@ -81,7 +81,7 @@ class MyProfile extends StatelessWidget {
                   bgColor: Colors.white,
                   txtColor: Colors.black,
                   url:
-                      "https://drive.google.com/file/d/1noAQJumuiq1fuSMwoQjZqQx2JNGKiEsd/view?usp=drive_link",
+                      "https://drive.google.com/file/d/1noAQJumuiq1fuSMwoQjZqQx2JNGKiEsd/view?usp=sharing",
                 ),
                 SocialProfile(
                   profilName: "LinkedIn",

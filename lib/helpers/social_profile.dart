@@ -27,12 +27,14 @@ class _SocialProfileState extends State<SocialProfile> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 5.0),
-      child: MouseRegion(
-        onEnter: (event) => setState(() => isHovering = true),
-        onExit: (event) => setState(() => isHovering = false),
-        cursor: SystemMouseCursors.click,
+    return MouseRegion(
+      onEnter: (event) => setState(() => isHovering = true),
+      onExit: (event) => setState(() => isHovering = false),
+      cursor: SystemMouseCursors.click,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 400),
+        margin: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 5.0),
+        padding: EdgeInsets.all(isHovering ? 5 : 2),
         child: InkWell(
           onTap: _launchURL,
           child: Chip(
@@ -51,7 +53,7 @@ class _SocialProfileState extends State<SocialProfile> {
               style: GoogleFonts.oswald(
                 color: widget.txtColor,
                 fontWeight: FontWeight.w700,
-                fontSize: isHovering ? 19 : 18,
+                fontSize: 18,
               ),
             ),
             backgroundColor:
@@ -59,8 +61,7 @@ class _SocialProfileState extends State<SocialProfile> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
-            padding:
-                const EdgeInsets.symmetric(horizontal: 4.0, vertical: 4.0),
+            padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 4.0),
             elevation: 6,
             shadowColor: widget.bgColor,
             visualDensity: VisualDensity.comfortable,

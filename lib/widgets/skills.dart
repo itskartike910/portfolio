@@ -50,6 +50,10 @@ class _SkillsState extends State<Skills> {
             iconPath: "assets/icons/c-.png",
           ),
           SkillsCard(
+            skillName: "Programming",
+            iconPath: "assets/icons/code1.png",
+          ),
+          SkillsCard(
             skillName: "DSA",
             iconPath: "assets/icons/programming.png",
           ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio/constants/consts.dart';
 import 'package:portfolio/widgets/contact_me.dart';
@@ -23,7 +22,7 @@ class _HomePageState extends State<HomePage> {
   final projectKey = GlobalKey();
   final contactMeKey = GlobalKey();
   String resumeUrl =
-      "https://drive.google.com/file/d/1noAQJumuiq1fuSMwoQjZqQx2JNGKiEsd/view?usp=drive_link";
+      "https://drive.google.com/file/d/1noAQJumuiq1fuSMwoQjZqQx2JNGKiEsd/view?usp=sharing";
   List<Widget> naveItem = [];
 
   @override
@@ -199,7 +198,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    isMobile = MediaQuery.of(context).size.width > 700 ? false : true;
+    isMobile = MediaQuery.of(context).size.width > 800 ? false : true;
     return Scaffold(
       backgroundColor: CustomColors.scaffoldBG,
       appBar: AppBar(
@@ -328,6 +327,15 @@ class _HomePageState extends State<HomePage> {
               ContactMe(isMobile: isMobile),
               const SizedBox(
                 height: 20,
+              ),
+              Text(
+                "© Handcrafted by me",
+                style: GoogleFonts.ubuntu(
+                  color: Colors.white38,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 15,
+                ),
+                textAlign: TextAlign.center,
               ),
             ],
           ),
