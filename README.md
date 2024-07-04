@@ -12,11 +12,6 @@ Check out the live version of the app [here](https://portfolio-kk09.netlify.app/
 - **Contact Form**: Allows users to send messages directly through the app.
 - **Social Media Integration**: Quick links to social media profiles.
 
-## Screenshots
-
-![Home Page](screenshots/home_page.png)
-![Contact Form](screenshots/contact_form.png)
-
 ## Technologies Used
 
 - **Flutter**: The UI toolkit for building natively compiled applications for mobile, web, and desktop from a single codebase.
