@@ -45,25 +45,18 @@ class MyProfile extends StatelessWidget {
                         offset: Offset(0, 8),
                       ),
                     ],
+                    image: DecorationImage(
+                      image: AssetImage("assets/profile.jpg"),
+                      fit: BoxFit.scaleDown,
+                      
+                    ),
                   ),
-                  child: CircleAvatar(
-                    radius: isMobile ? 80 : 120,
-                    backgroundImage: const AssetImage("assets/profile.jpg"),
-                  ),
+                  width: isMobile ? 160 : 240,
+                  height: isMobile ? 160 : 240, 
                 ),
               ],
             ),
           ),
-          // Text(
-          //   "Final year student @ NIT PATNA | Programmer | Flutter App Developer | Summer Intern @ EISystems Technologies",
-          //   style: GoogleFonts.playfairDisplay(
-          //     color: CustomColors.whitePrimary,
-          //     fontWeight: FontWeight.w600,
-          //     fontSize: isMobile ? 15 : 18,
-          //   ),
-          //   softWrap: true,
-          //   textAlign: TextAlign.center,
-          // ),
           const SizedBox(
             height: 10,
           ),

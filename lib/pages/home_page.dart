@@ -45,10 +45,10 @@ class _HomePageState extends State<HomePage> {
           }
         },
         style: const ButtonStyle(
-          elevation: MaterialStatePropertyAll(5.0),
-          shadowColor: MaterialStatePropertyAll(Colors.white),
+          elevation: WidgetStatePropertyAll(5.0),
+          shadowColor: WidgetStatePropertyAll(Colors.white),
           overlayColor:
-              MaterialStatePropertyAll(Color.fromARGB(255, 100, 50, 0)),
+              WidgetStatePropertyAll(Color.fromARGB(255, 100, 50, 0)),
         ),
         child: Text(
           "My Resume",
@@ -71,10 +71,10 @@ class _HomePageState extends State<HomePage> {
           );
         },
         style: const ButtonStyle(
-          elevation: MaterialStatePropertyAll(5.0),
-          shadowColor: MaterialStatePropertyAll(Colors.white),
+          elevation: WidgetStatePropertyAll(5.0),
+          shadowColor: WidgetStatePropertyAll(Colors.white),
           overlayColor:
-              MaterialStatePropertyAll(Color.fromARGB(255, 100, 50, 0)),
+              WidgetStatePropertyAll(Color.fromARGB(255, 100, 50, 0)),
         ),
         child: Text(
           "My Profile",
@@ -97,10 +97,10 @@ class _HomePageState extends State<HomePage> {
           );
         },
         style: const ButtonStyle(
-          elevation: MaterialStatePropertyAll(5.0),
-          shadowColor: MaterialStatePropertyAll(Colors.white),
+          elevation: WidgetStatePropertyAll(5.0),
+          shadowColor: WidgetStatePropertyAll(Colors.white),
           overlayColor:
-              MaterialStatePropertyAll(Color.fromARGB(255, 100, 50, 0)),
+              WidgetStatePropertyAll(Color.fromARGB(255, 100, 50, 0)),
         ),
         child: Text(
           "Experience",
@@ -123,10 +123,10 @@ class _HomePageState extends State<HomePage> {
           );
         },
         style: const ButtonStyle(
-          elevation: MaterialStatePropertyAll(5.0),
-          shadowColor: MaterialStatePropertyAll(Colors.white),
+          elevation: WidgetStatePropertyAll(5.0),
+          shadowColor: WidgetStatePropertyAll(Colors.white),
           overlayColor:
-              MaterialStatePropertyAll(Color.fromARGB(255, 100, 50, 0)),
+              WidgetStatePropertyAll(Color.fromARGB(255, 100, 50, 0)),
         ),
         child: Text(
           "Skills",
@@ -149,10 +149,10 @@ class _HomePageState extends State<HomePage> {
           );
         },
         style: const ButtonStyle(
-          elevation: MaterialStatePropertyAll(5.0),
-          shadowColor: MaterialStatePropertyAll(Colors.white),
+          elevation: WidgetStatePropertyAll(5.0),
+          shadowColor: WidgetStatePropertyAll(Colors.white),
           overlayColor:
-              MaterialStatePropertyAll(Color.fromARGB(255, 100, 50, 0)),
+              WidgetStatePropertyAll(Color.fromARGB(255, 100, 50, 0)),
         ),
         child: Text(
           "Projects",
@@ -175,10 +175,10 @@ class _HomePageState extends State<HomePage> {
           );
         },
         style: const ButtonStyle(
-          elevation: MaterialStatePropertyAll(5.0),
-          shadowColor: MaterialStatePropertyAll(Colors.white),
+          elevation: WidgetStatePropertyAll(5.0),
+          shadowColor: WidgetStatePropertyAll(Colors.white),
           overlayColor:
-              MaterialStatePropertyAll(Color.fromARGB(255, 100, 50, 0)),
+              WidgetStatePropertyAll(Color.fromARGB(255, 100, 50, 0)),
         ),
         child: Text(
           "Contact Me",
@@ -329,7 +329,7 @@ class _HomePageState extends State<HomePage> {
                 height: 20,
               ),
               Text(
-                "© Handcrafted by me",
+                "© Handcrafted by me (Using Flutter Web)",
                 style: GoogleFonts.ubuntu(
                   color: Colors.white38,
                   fontWeight: FontWeight.w500,

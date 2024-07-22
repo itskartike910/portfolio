@@ -42,9 +42,11 @@ class _ProjectCardState extends State<ProjectCard> {
         height: isHovering ? 470 : 450,
         padding: const EdgeInsets.all(12.0),
         decoration: BoxDecoration(
-          gradient: const RadialGradient(
+          gradient: const LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
             colors: [
-              Color.fromARGB(255, 60, 60, 60),
+              Color.fromARGB(125, 50, 0, 0),
               Color.fromARGB(255, 85, 85, 85),
             ],
           ),

@@ -1,11 +1,10 @@
-import 'dart:developer';
+// ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mailer/mailer.dart';
-import 'package:mailer/smtp_server.dart';
 import 'package:portfolio/constants/consts.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 
 class ContactMe extends StatefulWidget {
   final bool isMobile;
@@ -13,6 +12,7 @@ class ContactMe extends StatefulWidget {
   const ContactMe({super.key, required this.isMobile});
 
   @override
+  // ignore: library_private_types_in_public_api
   _ContactMeState createState() => _ContactMeState();
 }
 
@@ -33,41 +33,30 @@ class _ContactMeState extends State<ContactMe> {
   }
 
   Future<void> sendEmail() async {
-    final String username = 'your_email@gmail.com'; // Your email
-    final String password = 'your_app_password'; // Your email App Password
-
-    final smtpServer = gmail(username, password);
-
-    final message = Message()
-      ..from = Address(username, 'Your Name')
-      ..recipients.add('kumarkartik147359@gmail.com')
-      ..subject = _subjectController.text
-      ..text = 'Name: ${_nameController.text}\n'
-          'Email: ${_emailController.text}\n'
-          'Message: ${_messageController.text}';
-
     try {
-      final sendReport = await send(message, smtpServer);
-      log('Message sent: $sendReport');
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Message sent successfully!')),
-      );
-    } on MailerException catch (e) {
-      log('Message not sent. MailerException: \n$e');
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Failed to send message. MailerException.')),
-      );
-      for (var p in e.problems) {
-        log('Problem: ${p.code}: ${p.msg}');
+      final HttpsCallable callable = FirebaseFunctions.instance.httpsCallable('sendEmail');
+      final response = await callable.call(<String, dynamic>{
+        'name': _nameController.text,
+        'email': _emailController.text,
+        'subject': _subjectController.text,
+        'message': _messageController.text,
+        'to': 'kumarkartik147359@gmail.com',
+      });
+      if (response.data['success']) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Message sent successfully!')),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Failed to send message.')),
+        );
       }
     } catch (e) {
-      log('Unexpected error: $e');
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('An unexpected error occurred.')),
       );
     }
   }
-
 
   @override
   Widget build(BuildContext context) {

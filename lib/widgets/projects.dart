@@ -22,7 +22,7 @@ class Projects extends StatelessWidget {
         children: [
           ProjectCard(
             projectTitle: "ChatApp",
-            imagePath: "assets/images/ChatBox.png",
+            // imagePath: "assets/images/ChatBox.png",
             githubUrl: "https://github.com/itskartike910/chat_app",
             projectUrl: "https://github.com/itskartike910/chat_app/releases",
             webAvailable: false,
@@ -34,7 +34,7 @@ class Projects extends StatelessWidget {
           ),
           ProjectCard(
             projectTitle: "Tic Tac Toe",
-            imagePath: "assets/images/tictactoe.png",
+            // imagePath: "assets/images/tictactoe.png",
             githubUrl: "https://github.com/itskartike910/tic_tac_toe",
             projectUrl: "https://github.com/itskartike910/tic_tac_toe/releases",
             otherSource: true,
