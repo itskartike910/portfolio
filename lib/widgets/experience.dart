@@ -57,7 +57,7 @@ class _ExperienceState extends State<Experience> {
                 ),
               ),
               Tooltip(
-                message: "Link to the Offer Letter",
+                message: "Link to the Certificate",
                   textStyle: GoogleFonts.roboto(
                     color: Colors.white,
                     fontSize: 12,
@@ -74,7 +74,7 @@ class _ExperienceState extends State<Experience> {
                 child: TextButton(
                   onPressed: () async {
                     await _launchURL(
-                        "https://drive.google.com/file/d/1cA97ekyZD8HxskahB1w0dd5p6-QRZ0ki/view?usp=sharing");
+                        "https://drive.google.com/file/d/1b22DfCz2wz-5YyWGl9ss0TPMhtYGF-vw/view?usp=sharing");
                   },
                   child: Text(
                     "Link",
