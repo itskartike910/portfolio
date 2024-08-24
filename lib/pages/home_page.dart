@@ -103,7 +103,7 @@ class _HomePageState extends State<HomePage> {
               WidgetStatePropertyAll(Color.fromARGB(255, 100, 50, 0)),
         ),
         child: Text(
-          "Experience",
+          "Experiences",
           style: GoogleFonts.ubuntu(
             color: CustomColors.whitePrimary,
             fontWeight: FontWeight.w500,
@@ -198,7 +198,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    isMobile = MediaQuery.of(context).size.width > 800 ? false : true;
+    isMobile = MediaQuery.of(context).size.width < 900 ? true : false;
     return Scaffold(
       backgroundColor: CustomColors.scaffoldBG,
       appBar: AppBar(
@@ -258,7 +258,7 @@ class _HomePageState extends State<HomePage> {
                   Column(
                     children: [
                       Text(
-                        "Experience",
+                        "Experiences",
                         key: experienceKey,
                         style: GoogleFonts.playfair(
                           color: CustomColors.whitePrimary,

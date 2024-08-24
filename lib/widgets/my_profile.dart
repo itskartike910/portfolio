@@ -1,12 +1,20 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio/constants/consts.dart';
 import 'package:portfolio/helpers/social_profile.dart';
 import 'package:portfolio/widgets/about_me.dart';
 
-class MyProfile extends StatelessWidget {
+class MyProfile extends StatefulWidget {
   final bool isMobile;
   const MyProfile({super.key, required this.isMobile});
+
+  @override
+  State<MyProfile> createState() => _MyProfileState();
+}
+
+class _MyProfileState extends State<MyProfile> {
+  bool isHovering = false;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +23,7 @@ class MyProfile extends StatelessWidget {
         vertical: 20,
         horizontal: 10,
       ),
-      height: isMobile ? 850 : 550,
+      height: widget.isMobile ? 850 : 550,
       width: double.maxFinite,
       decoration: CustomColors.cardDecoration1,
       child: Column(
@@ -25,34 +33,77 @@ class MyProfile extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Text(
-                  "Hello, I'm\nKartik Kumar",
-                  style: GoogleFonts.dancingScript(
-                    color: CustomColors.whitePrimary,
-                    fontWeight: FontWeight.w900,
-                    fontSize: isMobile ? 26 : 32,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                Container(
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Color.fromARGB(255, 175, 175, 175),
-                        blurRadius: 20,
-                        spreadRadius: 2,
-                        offset: Offset(0, 8),
-                      ),
-                    ],
-                    image: DecorationImage(
-                      image: AssetImage("assets/profile.jpg"),
-                      fit: BoxFit.scaleDown,
-                      
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    AnimatedTextKit(
+                      key: ValueKey(widget.isMobile),
+                      animatedTexts: [
+                        TypewriterAnimatedText(
+                          "Hello, I'm\nKartik Kumar",
+                          textStyle: GoogleFonts.bungeeSpice(
+                            color: CustomColors.whitePrimary,
+                            fontWeight: FontWeight.w600,
+                            fontSize: widget.isMobile ? 22 : 32,
+                          ),
+                          speed: const Duration(milliseconds: 100),
+                        ),
+                      ],
+                      totalRepeatCount: 3,
+                      pause: const Duration(milliseconds: 1000),
+                      displayFullTextOnTap: true,
+                      stopPauseOnTap: true,
                     ),
+                    AnimatedTextKit(
+                      animatedTexts: [
+                        TypewriterAnimatedText(
+                          "",
+                          textStyle: GoogleFonts.bungeeInline(
+                            color: const Color.fromARGB(255, 255, 120, 50),
+                            fontWeight: FontWeight.w400,
+                            fontSize: widget.isMobile ? 24 : 34,
+                          ),
+                          cursor: "|",
+                          speed: const Duration(milliseconds: 200),
+                        ),
+                      ],
+                      pause: const Duration(milliseconds: 200),
+                      displayFullTextOnTap: true,
+                      stopPauseOnTap: true,
+                      repeatForever: true,
+                    ),
+                  ],
+                ),
+                MouseRegion(
+                  onEnter: (event) => setState(() => isHovering = true),
+                  onExit: (event) => setState(() => isHovering = false),
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 150),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: isHovering
+                              ? const Color.fromARGB(255, 100, 235, 255)
+                              : const Color.fromARGB(255, 175, 175, 175),
+                          blurRadius: 20,
+                          spreadRadius: 2,
+                          offset: const Offset(0, 8),
+                        ),
+                      ],
+                      image: const DecorationImage(
+                        image: AssetImage("assets/profile.jpg"),
+                        fit: BoxFit.scaleDown,
+                      ),
+                    ),
+                    width: widget.isMobile
+                        ? (isHovering ? 170 : 160)
+                        : (isHovering ? 275 : 240),
+                    height: widget.isMobile
+                        ? (isHovering ? 170 : 160)
+                        : (isHovering ? 275 : 240),
                   ),
-                  width: isMobile ? 160 : 240,
-                  height: isMobile ? 160 : 240, 
                 ),
               ],
             ),
@@ -115,7 +166,7 @@ class MyProfile extends StatelessWidget {
             ),
           ),
           AboutMe(
-            isMobile: isMobile,
+            isMobile: widget.isMobile,
           ),
         ],
       ),

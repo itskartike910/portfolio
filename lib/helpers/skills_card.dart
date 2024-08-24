@@ -17,37 +17,46 @@ class SkillsCard extends StatefulWidget {
 }
 
 class _SkillsState extends State<SkillsCard> {
+  bool isHovering = false;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
-      child: Chip(
-        avatar: widget.iconPath != null
-            ? ClipOval(
-                child: Image.asset(
-                  widget.iconPath!,
-                  width: 20.0,
-                  height: 20.0,
-                  fit: BoxFit.cover,
-                ),
-              )
-            : null,
-        label: Text(
-          widget.skillName,
-          style: GoogleFonts.ubuntuMono(
-            color: CustomColors.cardText,
-            fontWeight: FontWeight.w700,
-            fontSize: 16,
+    return MouseRegion(
+      onEnter: (event) => setState(() => isHovering = true),
+      onExit: (event) => setState(() => isHovering = false),
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+        child: Chip(
+          avatar: widget.iconPath != null
+              ? ClipOval(
+                  child: Image.asset(
+                    widget.iconPath!,
+                    width: isHovering ? 20.5 : 20.0,
+                    height: isHovering ? 20.5 : 20.0,
+                    fit: BoxFit.cover,
+                  ),
+                )
+              : null,
+          label: Text(
+            widget.skillName,
+            style: GoogleFonts.ubuntuMono(
+              color: CustomColors.cardText,
+              fontWeight: FontWeight.w700,
+              fontSize: isHovering ? 16.25 : 16,
+            ),
           ),
+          backgroundColor: isHovering
+              ? const Color.fromARGB(255, 0, 20, 180)
+              : CustomColors.cardBG,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 5.0),
+          elevation: 5,
+          shadowColor: isHovering
+              ? const Color.fromARGB(255, 50, 215, 255)
+              : const Color.fromARGB(255, 175, 175, 175),
+          visualDensity: VisualDensity.comfortable,
         ),
-        backgroundColor: CustomColors.cardBG,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
-        padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 5.0),
-        elevation: 5,
-        shadowColor: const Color.fromARGB(255, 175, 175, 175),
-        visualDensity: VisualDensity.comfortable,
       ),
     );
   }
