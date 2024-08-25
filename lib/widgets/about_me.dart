@@ -33,9 +33,9 @@ class AboutMe extends StatelessWidget {
             style: GoogleFonts.ubuntu(
               color: CustomColors.whitePrimary,
               fontWeight: FontWeight.w500,
-              fontSize: 16,
+              fontSize: isMobile ? 14 : 16,
             ),
-            textAlign: TextAlign.justify,
+            textAlign: TextAlign.left,
           ),
         ],
       ),

@@ -8,6 +8,7 @@ class SocialProfile extends StatefulWidget {
   final Color? bgColor;
   final Color txtColor;
   final String? url;
+  final bool isMobile;
 
   const SocialProfile({
     super.key,
@@ -16,6 +17,7 @@ class SocialProfile extends StatefulWidget {
     this.bgColor,
     this.url,
     required this.txtColor,
+    required this.isMobile,
   });
 
   @override
@@ -33,7 +35,10 @@ class _SocialProfileState extends State<SocialProfile> {
       cursor: SystemMouseCursors.click,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 400),
-        margin: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 5.0),
+        margin: EdgeInsets.symmetric(
+          vertical: widget.isMobile ? 2.5 : 3.0,
+          horizontal: widget.isMobile ? 2.5 : 5.0,
+        ),
         padding: EdgeInsets.all(isHovering ? 5 : 2),
         child: InkWell(
           onTap: _launchURL,
@@ -42,8 +47,8 @@ class _SocialProfileState extends State<SocialProfile> {
                 ? ClipOval(
                     child: Image.asset(
                       widget.iconPath!,
-                      width: 20.0,
-                      height: 20.0,
+                      width: widget.isMobile ? 17.5 : 20.0,
+                      height: widget.isMobile ? 17.5 : 20.0,
                       fit: BoxFit.cover,
                     ),
                   )
@@ -53,7 +58,7 @@ class _SocialProfileState extends State<SocialProfile> {
               style: GoogleFonts.oswald(
                 color: widget.txtColor,
                 fontWeight: FontWeight.w700,
-                fontSize: 18,
+                fontSize: widget.isMobile ? 16 : 18,
               ),
             ),
             backgroundColor:
@@ -61,7 +66,10 @@ class _SocialProfileState extends State<SocialProfile> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
-            padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 4.0),
+            padding: EdgeInsets.symmetric(
+              horizontal: widget.isMobile ? 3.5 : 4.0,
+              vertical: widget.isMobile ? 3.5 : 4.0,
+            ),
             elevation: 6,
             shadowColor: widget.bgColor,
             visualDensity: VisualDensity.comfortable,
