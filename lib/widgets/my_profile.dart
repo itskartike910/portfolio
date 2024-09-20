@@ -136,7 +136,7 @@ class _MyProfileState extends State<MyProfile> {
                 SocialProfile(
                   profilName: "LinkedIn",
                   iconPath: "assets/icons/linkedin.png",
-                  bgColor: Color.fromARGB(255, 0, 20, 125),
+                  bgColor: const Color.fromARGB(255, 0, 20, 125),
                   txtColor: Colors.white,
                   isMobile: widget.isMobile, 
                   url: "https://www.linkedin.com/in/kartik-kumar-4277b4235/",
