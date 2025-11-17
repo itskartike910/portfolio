@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio/constants/consts.dart';
@@ -49,7 +51,7 @@ class AboutMe extends StatelessWidget {
                     color: CustomColors.primaryAccent.withOpacity(0.5),
                   ),
                 ),
-                child: Icon(
+                child: const Icon(
                   Icons.person_outline,
                   color: CustomColors.primaryAccent,
                   size: 24,
@@ -73,17 +75,17 @@ class AboutMe extends StatelessWidget {
           _buildInfoRow(
             icon: Icons.school_outlined,
             title: "Education",
-            content: "B.Tech in Computer Science and Engineering from NIT Patna",
+            content: "B.Tech in Computer Science and Engineering from National Institute of Technology, Patna(2021 – 2025)",
             color: CustomColors.primaryAccent,
             isMobile: isMobile,
           ),
           
           const SizedBox(height: 16),
-          
+
           _buildInfoRow(
             icon: Icons.code_outlined,
             title: "Expertise",
-            content: "2+ years of experience in mobile app development using Flutter and Firebase",
+            content: "1+ years of industry experience in Android Development and Chromium Development. \nHands-on experience in Android app development using Flutter, Firebase, and React-based extensions. \nStrong foundation in AI/ML, system-level programming, and browser technology.",
             color: CustomColors.greenAccent,
             isMobile: isMobile,
           ),
@@ -93,7 +95,7 @@ class AboutMe extends StatelessWidget {
           _buildInfoRow(
             icon: Icons.psychology_outlined,
             title: "Competitive Programming",
-            content: "Solid grasp of Data Structures and Algorithms in C++, with 1800+ problems solved",
+            content: "Solid grasp of Data Structures and Algorithms (C++) with 1000+ problems solved on LeetCode, GFG, CodeChef and other platforms.",
             color: CustomColors.yellowPrimary,
             isMobile: isMobile,
           ),
@@ -102,9 +104,19 @@ class AboutMe extends StatelessWidget {
           
           _buildInfoRow(
             icon: Icons.lightbulb_outline,
-            title: "Skills & Interests",
-            content: "Project management, version control with Git, UI/UX design, API integration, and continuous learning",
+            title: "Skills & Tools",
+            content: "Languages: C++, C, Java, SQL, Dart, HTML, CSS \nDeveloper Tools: Android Studio, VS Code, Git, GitHub, Firebase, MySQL \nCore Subjects: DSA, Operating Systems, DBMS, AI, ML",
             color: CustomColors.secondaryAccent,
+            isMobile: isMobile,
+          ),
+
+          const SizedBox(height: 16),
+          
+          _buildInfoRow(
+            icon: Icons.interests_outlined,
+            title: "Interests",
+            content: "Software development, AI, app creation, playing chess and badminton, and listening to music.",
+            color: CustomColors.purpleAccent,
             isMobile: isMobile,
           ),
           
@@ -122,7 +134,7 @@ class AboutMe extends StatelessWidget {
             ),
             child: Row(
               children: [
-                Icon(
+                const Icon(
                   Icons.verified_outlined,
                   color: CustomColors.primaryAccent,
                   size: 20,
@@ -130,7 +142,7 @@ class AboutMe extends StatelessWidget {
                 const SizedBox(width: 10),
                 Expanded(
                   child: Text(
-                    "Passionate, self-taught developer committed to contributing to innovative projects",
+                    "Passionate developer committed to building intelligent, scalable, and meaningful digital solutions.",
                     style: GoogleFonts.ubuntu(
                       color: CustomColors.textGrey,
                       fontWeight: FontWeight.w600,

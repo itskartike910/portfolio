@@ -145,6 +145,15 @@ class _MyProfileState extends State<MyProfile> with SingleTickerProviderStateMix
                         ),
                         speed: const Duration(milliseconds: 100),
                       ),
+                      TypewriterAnimatedText(
+                        "Chromium Developer",
+                        textStyle: GoogleFonts.ubuntu(
+                          color: CustomColors.purpleAccent,
+                          fontSize: 28,
+                          fontWeight: FontWeight.w700,
+                        ),
+                        speed: const Duration(milliseconds: 100),
+                      ),
                     ],
                   ),
                 ],
@@ -157,9 +166,9 @@ class _MyProfileState extends State<MyProfile> with SingleTickerProviderStateMix
                 spacing: 20,
                 runSpacing: 15,
                 children: [
-                  _buildStatChip("2+ Years", "Experience", CustomColors.primaryAccent),
+                  _buildStatChip("1+ Years", "Experience", CustomColors.primaryAccent),
                   _buildStatChip("10+", "Projects", CustomColors.greenAccent),
-                  _buildStatChip("1800+", "Problems", CustomColors.yellowPrimary),
+                  _buildStatChip("1000+", "Problems", CustomColors.yellowPrimary),
                 ],
               ),
             ],
@@ -256,6 +265,15 @@ class _MyProfileState extends State<MyProfile> with SingleTickerProviderStateMix
                       "Problem Solver",
                       textStyle: GoogleFonts.ubuntu(
                         color: CustomColors.secondaryAccent,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      speed: const Duration(milliseconds: 100),
+                    ),
+                    TypewriterAnimatedText(
+                      "Chromium Developer",
+                      textStyle: GoogleFonts.ubuntu(
+                        color: CustomColors.purpleAccent,
                         fontSize: 20,
                         fontWeight: FontWeight.w700,
                       ),
@@ -421,7 +439,7 @@ class _MyProfileState extends State<MyProfile> with SingleTickerProviderStateMix
             bgColor: CustomColors.yellowPrimary,
             txtColor: Colors.black,
             isMobile: widget.isMobile,
-            url: "https://drive.google.com/file/d/1noAQJumuiq1fuSMwoQjZqQx2JNGKiEsd/view?usp=sharing",
+            url: "https://drive.google.com/file/d/1Cqrs-sYmVCJ_if73wZMkS4IUppMjzqbX/view?usp=sharing",
           ),
           SocialProfile(
             profilName: "LinkedIn",

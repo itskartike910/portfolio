@@ -1,7 +1,9 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio/constants/consts.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+// import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 class Skills extends StatefulWidget {
   const Skills({super.key});
@@ -18,19 +20,19 @@ class _SkillsState extends State<Skills> with TickerProviderStateMixin {
       {"name": "C", "level": 0.85, "icon": "assets/icons/c-.png", "iconData": null},
       {"name": "Java", "level": 0.8, "icon": null, "iconData": Icons.coffee_outlined},
       {"name": "Python", "level": 0.8, "icon": "assets/icons/python.png", "iconData": null},
-      {"name": "JavaScript", "level": 0.75, "icon": null, "iconData": Icons.javascript_outlined},
-      {"name": "Dart", "level": 0.9, "icon": null, "iconData": Icons.arrow_right_alt_outlined},
+      {"name": "JavaScript", "level": 0.8, "icon": null, "iconData": Icons.javascript_outlined},
+      {"name": "Dart", "level": 0.8, "icon": "assets/icons/dart.png", "iconData": null},
       {"name": "SQL", "level": 0.75, "icon": null, "iconData": Icons.storage_outlined},
       {"name": "HTML/CSS", "level": 0.8, "icon": null, "iconData": Icons.html_outlined},
     ],
     "Frameworks & Tools": [
-      {"name": "Chromium", "level": 0.7, "icon": null, "iconData": Icons.web_outlined},
-      {"name": "Flutter", "level": 0.95, "icon": "assets/icons/flutter.jpg", "iconData": null},
+      {"name": "Chromium", "level": 0.7, "icon": "assets/icons/chromium.jpg", "iconData": null},
+      {"name": "Flutter", "level": 0.85, "icon": "assets/icons/flutter.jpg", "iconData": null},
       {"name": "React.js", "level": 0.75, "icon": null, "iconData": Icons.web_outlined},
       {"name": "Android Dev", "level": 0.85, "icon": "assets/icons/androidDev.png", "iconData": null},
       {"name": "Android Studio", "level": 0.9, "icon": "assets/icons/astudio.png", "iconData": null},
-      {"name": "Firebase", "level": 0.85, "icon": "assets/icons/firebase.png", "iconData": null},
-      {"name": "Git", "level": 0.85, "icon": "assets/icons/git.png", "iconData": null},
+      {"name": "Firebase", "level": 0.75, "icon": "assets/icons/firebase.png", "iconData": null},
+      {"name": "Git", "level": 0.90, "icon": "assets/icons/git.png", "iconData": null},
       {"name": "GitHub", "level": 0.9, "icon": "assets/icons/github.jpg", "iconData": null},
       {"name": "Linux/Ubuntu", "level": 0.8, "icon": null, "iconData": Icons.terminal_outlined},
       {"name": "VS Code", "level": 0.9, "icon": "assets/icons/visual-basic.png", "iconData": Icons.code_outlined},
@@ -38,7 +40,7 @@ class _SkillsState extends State<Skills> with TickerProviderStateMixin {
     ],
     "Specializations": [
       {"name": "DSA", "level": 0.9, "icon": "assets/icons/programming.png", "iconData": null},
-      {"name": "Competitive Programming", "level": 0.9, "icon": null, "iconData": Icons.emoji_events_outlined},
+      {"name": "Competitive Programming", "level": 0.85, "icon": null, "iconData": Icons.emoji_events_outlined},
       {"name": "Machine Learning", "level": 0.75, "icon": "assets/icons/machinelearning.png", "iconData": null},
       // {"name": "Deep Learning", "level": 0.7, "icon": null, "iconData": Icons.psychology_outlined},
       {"name": "Database Management", "level": 0.75, "icon": "assets/icons/mysql.png", "iconData": null},
@@ -130,7 +132,7 @@ class _SkillsState extends State<Skills> with TickerProviderStateMixin {
                     width: 4,
                     height: 24,
                     decoration: BoxDecoration(
-                      gradient: LinearGradient(
+                      gradient: const LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         colors: [

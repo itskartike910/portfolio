@@ -30,7 +30,7 @@ class CustomColors {
   static const Color yellowPrimary = Color(0xFFFFBE0B);
   static const Color yellowSecondary = Colors.yellowAccent;
   static const Color redPrimary = Colors.red;
-  static const Color redSecondary = Colors.redAccent;
+  static const Color redSecondary = Color.fromARGB(255, 255, 109, 109);
   static const Color greenAccent = Color(0xFF06FFA5);
   static const Color purpleAccent = Color(0xFF9D4EDD);
   

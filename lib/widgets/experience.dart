@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio/constants/consts.dart';
@@ -108,9 +110,9 @@ class _ExperienceState extends State<Experience> with TickerProviderStateMixin {
             duration: "13th April 2023",
             currentRole: false,
             responsibilities: [
-              "Worked as a UI Developer in ByteVerse (an online Hackathon)",
-              "Created an Android app named AlertUs for community emergency alerts",
-              "Developed user interface and integrated real-time notification features",
+              "Collaborated as an Android Developer during the ByteVerse online hackathon",
+              "Developed 'AlertUs', a community emergency alert app using Flutter",
+              "Designed an intuitive UI and implemented real-time notification functionality",
             ],
             certificateUrl:
                 "https://drive.google.com/file/d/1NlKT-CzRPKpJsJ7jfoOgm63TXlI8339P/view?usp=sharing",
@@ -152,14 +154,14 @@ class _ExperienceState extends State<Experience> with TickerProviderStateMixin {
             border: Border.all(
               color: currentRole
                   ? CustomColors.primaryAccent.withOpacity(0.4)
-                  : CustomColors.borderColorLight.withOpacity(0.2),
+                  : CustomColors.primaryAccent.withOpacity(0.2),
               width: 1.5,
             ),
             boxShadow: [
               BoxShadow(
                 color: currentRole
                     ? CustomColors.primaryAccent.withOpacity(0.1)
-                    : Colors.transparent,
+                    : CustomColors.primaryAccent.withOpacity(0.05),
                 blurRadius: 12,
                 offset: const Offset(0, 4),
               ),
@@ -247,7 +249,7 @@ class _ExperienceState extends State<Experience> with TickerProviderStateMixin {
                         const SizedBox(height: 4),
                         Row(
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.location_on_outlined,
                               size: 14,
                               color: CustomColors.whiteSecondary,
@@ -277,7 +279,7 @@ class _ExperienceState extends State<Experience> with TickerProviderStateMixin {
                 children: [
                   Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.calendar_today_outlined,
                         size: 14,
                         color: CustomColors.yellowPrimary,
@@ -315,7 +317,7 @@ class _ExperienceState extends State<Experience> with TickerProviderStateMixin {
                         ),
                         child: Row(
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.verified_outlined,
                               size: 14,
                               color: CustomColors.primaryAccent,

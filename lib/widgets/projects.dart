@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio/constants/consts.dart';
 import 'package:portfolio/constants/project_data.dart';
-import 'package:portfolio/helpers/enhanced_project_card.dart';
+import 'package:portfolio/helpers/project_card.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 class Projects extends StatefulWidget {

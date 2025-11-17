@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, deprecated_member_use
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -114,7 +114,7 @@ class _ContactMeState extends State<ContactMe> {
                       color: CustomColors.primaryAccent.withOpacity(0.5),
                     ),
                   ),
-                  child: Icon(
+                  child: const Icon(
                     Icons.email_outlined,
                     color: CustomColors.primaryAccent,
                     size: 28,
@@ -146,7 +146,7 @@ class _ContactMeState extends State<ContactMe> {
               ),
               child: Row(
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.mail_outline,
                     color: CustomColors.primaryAccent,
                     size: 20,
@@ -173,132 +173,132 @@ class _ContactMeState extends State<ContactMe> {
                 ],
               ),
             ),
-            const SizedBox(height: 20),
-            _buildTextField(
-              controller: _nameController,
-              label: "Name",
-              hint: "Enter your name",
-              icon: Icons.person_outline,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter your name';
-                }
-                return null;
-              },
-            ),
-            const SizedBox(height: 15),
-            _buildTextField(
-              controller: _emailController,
-              label: "Email",
-              hint: "Enter your email",
-              icon: Icons.email_outlined,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter your email';
-                } else if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
-                  return 'Please enter a valid email';
-                }
-                return null;
-              },
-            ),
-            const SizedBox(height: 15),
-            _buildTextField(
-              controller: _subjectController,
-              label: "Subject",
-              hint: "What's this about?",
-              icon: Icons.subject_outlined,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter a subject';
-                }
-                return null;
-              },
-            ),
-            const SizedBox(height: 15),
-            _buildTextField(
-              controller: _messageController,
-              label: "Message",
-              hint: "Your message here...",
-              icon: Icons.message_outlined,
-              maxLines: 6,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter your message';
-                }
-                return null;
-              },
-            ),
-            const SizedBox(height: 25),
-            Container(
-              width: double.maxFinite,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    CustomColors.primaryAccent,
-                    CustomColors.purpleAccent,
-                  ],
-                ),
-                borderRadius: BorderRadius.circular(16),
-                boxShadow: [
-                  BoxShadow(
-                    color: CustomColors.primaryAccent.withOpacity(0.4),
-                    blurRadius: 15,
-                    offset: const Offset(0, 8),
-                  ),
-                ],
-              ),
-              child: ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    sendEmail();
-                  }
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.transparent,
-                  shadowColor: Colors.transparent,
-                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 18),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.send_rounded,
-                      color: Colors.white,
-                      size: 22,
-                    ),
-                    const SizedBox(width: 12),
-                    Text(
-                      'Send Message',
-                      style: GoogleFonts.ubuntu(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 18,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            const SizedBox(height: 30),
+            // const SizedBox(height: 20),
+            // _buildTextField(
+            //   controller: _nameController,
+            //   label: "Name",
+            //   hint: "Enter your name",
+            //   icon: Icons.person_outline,
+            //   validator: (value) {
+            //     if (value == null || value.isEmpty) {
+            //       return 'Please enter your name';
+            //     }
+            //     return null;
+            //   },
+            // ),
+            // const SizedBox(height: 15),
+            // _buildTextField(
+            //   controller: _emailController,
+            //   label: "Email",
+            //   hint: "Enter your email",
+            //   icon: Icons.email_outlined,
+            //   validator: (value) {
+            //     if (value == null || value.isEmpty) {
+            //       return 'Please enter your email';
+            //     } else if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+            //       return 'Please enter a valid email';
+            //     }
+            //     return null;
+            //   },
+            // ),
+            // const SizedBox(height: 15),
+            // _buildTextField(
+            //   controller: _subjectController,
+            //   label: "Subject",
+            //   hint: "What's this about?",
+            //   icon: Icons.subject_outlined,
+            //   validator: (value) {
+            //     if (value == null || value.isEmpty) {
+            //       return 'Please enter a subject';
+            //     }
+            //     return null;
+            //   },
+            // ),
+            // const SizedBox(height: 15),
+            // _buildTextField(
+            //   controller: _messageController,
+            //   label: "Message",
+            //   hint: "Your message here...",
+            //   icon: Icons.message_outlined,
+            //   maxLines: 6,
+            //   validator: (value) {
+            //     if (value == null || value.isEmpty) {
+            //       return 'Please enter your message';
+            //     }
+            //     return null;
+            //   },
+            // ),
+            // const SizedBox(height: 25),
+            // Container(
+            //   width: double.maxFinite,
+            //   decoration: BoxDecoration(
+            //     gradient: LinearGradient(
+            //       colors: [
+            //         CustomColors.primaryAccent,
+            //         CustomColors.purpleAccent,
+            //       ],
+            //     ),
+            //     borderRadius: BorderRadius.circular(16),
+            //     boxShadow: [
+            //       BoxShadow(
+            //         color: CustomColors.primaryAccent.withOpacity(0.4),
+            //         blurRadius: 15,
+            //         offset: const Offset(0, 8),
+            //       ),
+            //     ],
+            //   ),
+            //   child: ElevatedButton(
+            //     onPressed: () {
+            //       if (_formKey.currentState!.validate()) {
+            //         sendEmail();
+            //       }
+            //     },
+            //     style: ElevatedButton.styleFrom(
+            //       backgroundColor: Colors.transparent,
+            //       shadowColor: Colors.transparent,
+            //       padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 18),
+            //       shape: RoundedRectangleBorder(
+            //         borderRadius: BorderRadius.circular(16),
+            //       ),
+            //     ),
+            //     child: Row(
+            //       mainAxisAlignment: MainAxisAlignment.center,
+            //       children: [
+            //         Icon(
+            //           Icons.send_rounded,
+            //           color: Colors.white,
+            //           size: 22,
+            //         ),
+            //         const SizedBox(width: 12),
+            //         Text(
+            //           'Send Message',
+            //           style: GoogleFonts.ubuntu(
+            //             color: Colors.white,
+            //             fontWeight: FontWeight.w700,
+            //             fontSize: 18,
+            //           ),
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // ),
+            // const SizedBox(height: 30),
             
-            Divider(
-              color: CustomColors.borderColorLight.withOpacity(0.3),
-              height: 1,
-            ),
+            // Divider(
+            //   color: CustomColors.borderColorLight.withOpacity(0.3),
+            //   height: 1,
+            // ),
             
-            const SizedBox(height: 25),
+            // const SizedBox(height: 25),
             
-            Text(
-              "Or connect with me on",
-              style: GoogleFonts.ubuntu(
-                color: CustomColors.whiteSecondary,
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
+            // Text(
+            //   "Or connect with me on",
+            //   style: GoogleFonts.ubuntu(
+            //     color: CustomColors.whiteSecondary,
+            //     fontSize: 14,
+            //     fontWeight: FontWeight.w500,
+            //   ),
+            // ),
             
             const SizedBox(height: 15),
             
@@ -334,12 +334,17 @@ class _ContactMeState extends State<ContactMe> {
                   _buildSocialButton(
                     icon: "assets/icons/telegram.png",
                     color: const Color(0xFF0088CC),
-                    url: "https://t.me/i_am_groot02",
+                    url: "https://t.me/itskartike910",
                   ),
                   _buildSocialButton(
                     icon: "assets/icons/gmail.png",
                     color: const Color(0xFFEA4335),
                     url: "https://mail.google.com/mail/u/0/#all?compose=GTvVlcRwRrlnKMBLBwTJGkSjJwrcgFHKBVzlRltxblZdQlRnxNLcSHPrWbljSPwpZmQCdrRZgtBrR",
+                  ),
+                  _buildSocialButton(
+                    icon: "assets/icons/whatsapp.jpeg", 
+                    color: const Color(0xFF25D366), 
+                    url: "https://wa.me/+918434376401"
                   ),
                 ],
               ),
@@ -350,6 +355,7 @@ class _ContactMeState extends State<ContactMe> {
     );
   }
 
+  // ignore: unused_element
   Widget _buildTextField({
     required TextEditingController controller,
     required String label,

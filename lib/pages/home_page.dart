@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio/constants/consts.dart';
@@ -7,8 +9,8 @@ import 'package:portfolio/widgets/my_profile.dart';
 import 'package:portfolio/widgets/projects.dart';
 import 'package:portfolio/widgets/skills.dart';
 import 'package:portfolio/widgets/achievements.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+// import 'package:url_launcher/url_launcher.dart';
+// import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -25,7 +27,7 @@ class _HomePageState extends State<HomePage> {
   final projectKey = GlobalKey();
   final contactMeKey = GlobalKey();
   String resumeUrl =
-      "https://drive.google.com/file/d/1noAQJumuiq1fuSMwoQjZqQx2JNGKiEsd/view?usp=sharing";
+      "https://drive.google.com/file/d/1Cqrs-sYmVCJ_if73wZMkS4IUppMjzqbX/view?usp=sharing";
   List<Widget> naveItem = [];
 
   @override
@@ -144,7 +146,7 @@ class _HomePageState extends State<HomePage> {
                   color: CustomColors.primaryAccent.withOpacity(0.3),
                 ),
               ),
-              child: Icon(
+              child: const Icon(
                 Icons.person_pin_outlined,
                 color: CustomColors.primaryAccent,
                 size: 28,
@@ -152,7 +154,7 @@ class _HomePageState extends State<HomePage> {
             ),
             const SizedBox(width: 12),
             ShaderMask(
-              shaderCallback: (bounds) => LinearGradient(
+              shaderCallback: (bounds) => const LinearGradient(
                 colors: [
                   CustomColors.primaryAccent,
                   CustomColors.purpleAccent,
@@ -210,7 +212,7 @@ class _HomePageState extends State<HomePage> {
                               color: CustomColors.primaryAccent.withOpacity(0.4),
                             ),
                           ),
-                          child: Icon(
+                          child: const Icon(
                             Icons.person_pin_outlined,
                             color: CustomColors.primaryAccent,
                             size: 40,
@@ -218,7 +220,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                         const SizedBox(height: 15),
                         ShaderMask(
-                          shaderCallback: (bounds) => LinearGradient(
+                          shaderCallback: (bounds) => const LinearGradient(
                             colors: [
                               CustomColors.primaryAccent,
                               CustomColors.purpleAccent,
@@ -276,7 +278,7 @@ class _HomePageState extends State<HomePage> {
             )
           : null,
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: CustomColors.backgroundGradient,
         ),
         child: SafeArea(

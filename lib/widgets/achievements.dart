@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio/constants/consts.dart';
@@ -20,7 +22,7 @@ class _AchievementsState extends State<Achievements>
   void initState() {
     super.initState();
     _controllers = List.generate(
-      4,
+      6, // Increased for certificates
       (index) => AnimationController(
         duration: Duration(milliseconds: 600 + (index * 100)),
         vsync: this,
@@ -117,6 +119,7 @@ class _AchievementsState extends State<Achievements>
             description: "Won the Robotics Club's \"Machine Mayhem\" competition",
             icon: Icons.smart_toy_outlined,
             color: CustomColors.purpleAccent,
+            certificateUrl: "https://drive.google.com/file/d/14DcCE1oltOdgKfUlWmf7p36xE-5o52N0/view?usp=sharing", 
           ),
           
           const SizedBox(height: 16),
@@ -126,11 +129,60 @@ class _AchievementsState extends State<Achievements>
             title: "Problem Solving Excellence",
             organization: "Multiple Platforms",
             date: "Ongoing",
-            amount: "1800+ Problems Solved",
+            amount: "1000+ Problems Solved",
             description:
-                "Solved 1000+ DSA problems across HackerRank, LeetCode, and CodeChef, demonstrating strong problem-solving skills and algorithmic expertise",
+                "Solved 1000+ DSA problems across LeetCode, GFG, HackerRank, and CodeChef, demonstrating strong problem-solving skills and algorithmic expertise",
             icon: Icons.track_changes_outlined,
             color: CustomColors.primaryAccent,
+            certificateUrl: null,
+          ),
+          
+          const SizedBox(height: 30),
+          
+          // Certificates
+          _buildSectionHeader(
+            title: "Certifications",
+            icon: Icons.card_membership_outlined,
+            color: CustomColors.greenAccent,
+          ),
+          
+          const SizedBox(height: 20),
+          
+          _buildCertificateCard(
+            index: 4,
+            courseName: "The Joy of Computing Using Python",
+            organization: "NPTEL (IIT Madras)",
+            duration: "Jul - Oct 2023",
+            score: "90%",
+            certificateUrl: "https://drive.google.com/file/d/1r15T4IZrL1JpArAg_yyLEy6vtlne88LJ/view?usp=sharing", 
+            icon: Icons.verified_outlined,
+            color: CustomColors.primaryAccent,
+          ),
+          
+          const SizedBox(height: 16),
+          
+          _buildCertificateCard(
+            index: 5,
+            courseName: "Ethical Hacking",
+            organization: "NPTEL (IIT Kharagpur)",
+            duration: "Jul - Oct 2024",
+            score: "73%",
+            certificateUrl: "https://drive.google.com/file/d/13HARCEJtNYIdgV2P234MD-OERQKo0Khk/view?usp=sharing", 
+            icon: Icons.security_outlined,
+            color: CustomColors.secondaryAccent,
+          ),
+
+          const SizedBox(height: 16),
+          
+          _buildCertificateCard(
+            index: 5,
+            courseName: "Data Structures in C++",
+            organization: "Coding Ninjas",
+            duration: "May - Aug 2023",
+            score: "100%",
+            certificateUrl: "https://drive.google.com/file/d/13UBxhhU2NkUkRAeovFtACxANvReYEydT/view?usp=sharing", 
+            icon: Icons.security_outlined,
+            color: CustomColors.redSecondary,
           ),
         ],
       ),
@@ -328,6 +380,7 @@ class _AchievementsState extends State<Achievements>
     required String description,
     required IconData icon,
     required Color color,
+    String? certificateUrl,
   }) {
     return FadeTransition(
       opacity: _animations[index],
@@ -463,7 +516,7 @@ class _AchievementsState extends State<Achievements>
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.emoji_events,
                             size: 16,
                             color: CustomColors.yellowPrimary,
@@ -491,10 +544,285 @@ class _AchievementsState extends State<Achievements>
                         height: 1.5,
                       ),
                     ),
+                    
+                    // Certificate Link
+                    if (certificateUrl != null && certificateUrl.isNotEmpty) ...[
+                      const SizedBox(height: 12),
+                      InkWell(
+                        onTap: () => _launchURL(certificateUrl),
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 8,
+                          ),
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [
+                                color.withOpacity(0.2),
+                                color.withOpacity(0.1),
+                              ],
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(
+                              color: color.withOpacity(0.4),
+                            ),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(
+                                Icons.open_in_new,
+                                size: 14,
+                                color: color,
+                              ),
+                              const SizedBox(width: 6),
+                              Text(
+                                "View Certificate",
+                                style: GoogleFonts.ubuntu(
+                                  color: color,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ],
                 ),
               ),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCertificateCard({
+    required int index,
+    required String courseName,
+    required String organization,
+    required String duration,
+    required String score,
+    required String certificateUrl,
+    required IconData icon,
+    required Color color,
+  }) {
+    return FadeTransition(
+      opacity: _animations[index],
+      child: SlideTransition(
+        position: Tween<Offset>(
+          begin: const Offset(0.3, 0),
+          end: Offset.zero,
+        ).animate(_animations[index]),
+        child: InkWell(
+          onTap: certificateUrl.isNotEmpty ? () => _launchURL(certificateUrl) : null,
+          borderRadius: BorderRadius.circular(16),
+          child: Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  color.withOpacity(0.15),
+                  color.withOpacity(0.05),
+                ],
+              ),
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(
+                color: color.withOpacity(0.4),
+                width: 1.5,
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: color.withOpacity(0.15),
+                  blurRadius: 12,
+                  offset: const Offset(0, 6),
+                ),
+              ],
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Icon
+                Container(
+                  padding: const EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        color.withOpacity(0.3),
+                        color.withOpacity(0.1),
+                      ],
+                    ),
+                    borderRadius: BorderRadius.circular(14),
+                    border: Border.all(
+                      color: color.withOpacity(0.5),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: color.withOpacity(0.3),
+                        blurRadius: 10,
+                        spreadRadius: 1,
+                      ),
+                    ],
+                  ),
+                  child: Icon(
+                    icon,
+                    color: color,
+                    size: 28,
+                  ),
+                ),
+                
+                const SizedBox(width: 16),
+                
+                // Content
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Course Name
+                      Text(
+                        courseName,
+                        style: GoogleFonts.ubuntu(
+                          color: CustomColors.whitePrimary,
+                          fontSize: widget.isMobile ? 16 : 18,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      
+                      const SizedBox(height: 8),
+                      
+                      // Organization
+                      Row(
+                        children: [
+                          const Icon(
+                            Icons.school_outlined,
+                            size: 16,
+                            color: CustomColors.primaryAccent,
+                          ),
+                          const SizedBox(width: 6),
+                          Expanded(
+                            child: Text(
+                              organization,
+                              style: GoogleFonts.ubuntu(
+                                color: CustomColors.primaryAccent,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      
+                      const SizedBox(height: 12),
+                      
+                      // Duration and Score
+                      Wrap(
+                        spacing: 12,
+                        runSpacing: 8,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 6,
+                            ),
+                            decoration: BoxDecoration(
+                              color: CustomColors.cardBGLight.withOpacity(0.5),
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(
+                                color: CustomColors.borderColorLight.withOpacity(0.3),
+                              ),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const Icon(
+                                  Icons.calendar_today_outlined,
+                                  size: 14,
+                                  color: CustomColors.whiteSecondary,
+                                ),
+                                const SizedBox(width: 6),
+                                Text(
+                                  duration,
+                                  style: GoogleFonts.ubuntu(
+                                    color: CustomColors.textGrey,
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 6,
+                            ),
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  color.withOpacity(0.3),
+                                  color.withOpacity(0.15),
+                                ],
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(
+                                color: color.withOpacity(0.5),
+                              ),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(
+                                  Icons.workspace_premium_outlined,
+                                  size: 14,
+                                  color: color,
+                                ),
+                                const SizedBox(width: 6),
+                                Text(
+                                  "Score: $score",
+                                  style: GoogleFonts.ubuntu(
+                                    color: color,
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      
+                      // View Certificate Link
+                      if (certificateUrl.isNotEmpty) ...[
+                        const SizedBox(height: 12),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.open_in_new,
+                              size: 14,
+                              color: color,
+                            ),
+                            const SizedBox(width: 6),
+                            Text(
+                              "View Certificate",
+                              style: GoogleFonts.ubuntu(
+                                color: color,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                                decoration: TextDecoration.underline,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
