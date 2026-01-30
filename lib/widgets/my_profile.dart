@@ -449,7 +449,7 @@ class _MyProfileState extends State<MyProfile> with SingleTickerProviderStateMix
             bgColor: const Color(0xFF0077B5),
             txtColor: Colors.white,
             isMobile: widget.isMobile,
-            url: "https://www.linkedin.com/in/kartik-kumar-4277b4235/",
+            url: "https://www.linkedin.com/in/kartikskr/",
           ),
           SocialProfile(
             profilName: "Github",
