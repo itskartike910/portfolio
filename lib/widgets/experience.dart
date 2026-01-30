@@ -69,15 +69,15 @@ class _ExperienceState extends State<Experience> with TickerProviderStateMixin {
             company: "Wootzapp Inc.",
             role: "Software Engineer Intern",
             location: "Remote (DE, Delaware, USA)",
-            duration: "Dec 2024 - Present",
-            currentRole: true,
+            duration: "Dec 2024 - Jan 2026",
+            currentRole: false,
             responsibilities: [
               "Contributing to the development of a Chromium-based mobile browser that integrates an app store",
               "Enabling users to earn passive income through data labeling while browsing",
               "Gained hands-on experience in Android development and React-based extensions",
               "Applying theoretical knowledge to enhance browser functionalities",
             ],
-            certificateUrl: null,
+            certificateUrl: "https://drive.google.com/file/d/1iG3A-_x8SgYQHV1uBfkc-a7bC_I3ls1x/view?usp=sharing",
           ),
           
           const SizedBox(height: 20),

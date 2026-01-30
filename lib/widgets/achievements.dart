@@ -150,19 +150,6 @@ class _AchievementsState extends State<Achievements>
           
           _buildCertificateCard(
             index: 4,
-            courseName: "The Joy of Computing Using Python",
-            organization: "NPTEL (IIT Madras)",
-            duration: "Jul - Oct 2023",
-            score: "90%",
-            certificateUrl: "https://drive.google.com/file/d/1r15T4IZrL1JpArAg_yyLEy6vtlne88LJ/view?usp=sharing", 
-            icon: Icons.verified_outlined,
-            color: CustomColors.primaryAccent,
-          ),
-          
-          const SizedBox(height: 16),
-          
-          _buildCertificateCard(
-            index: 5,
             courseName: "Ethical Hacking",
             organization: "NPTEL (IIT Kharagpur)",
             duration: "Jul - Oct 2024",
@@ -171,14 +158,27 @@ class _AchievementsState extends State<Achievements>
             icon: Icons.security_outlined,
             color: CustomColors.secondaryAccent,
           ),
+          
+          const SizedBox(height: 16),
+          
+          _buildCertificateCard(
+            index: 5,
+            courseName: "The Joy of Computing Using Python",
+            organization: "NPTEL (IIT Madras)",
+            duration: "Jul - Oct 2023",
+            score: "90%",
+            certificateUrl: "https://drive.google.com/file/d/1r15T4IZrL1JpArAg_yyLEy6vtlne88LJ/view?usp=sharing", 
+            icon: Icons.verified_outlined,
+            color: CustomColors.primaryAccent,
+          ),
 
           const SizedBox(height: 16),
           
           _buildCertificateCard(
             index: 5,
-            courseName: "Data Structures in C++",
+            courseName: "Data Structures and Algorithms in C++",
             organization: "Coding Ninjas",
-            duration: "May - Aug 2023",
+            duration: "Feb - Aug 2023",
             score: "100%",
             certificateUrl: "https://drive.google.com/file/d/13UBxhhU2NkUkRAeovFtACxANvReYEydT/view?usp=sharing", 
             icon: Icons.security_outlined,

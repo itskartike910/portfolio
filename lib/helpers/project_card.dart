@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio/constants/consts.dart';
@@ -55,7 +57,7 @@ class _EnhancedProjectCardState extends State<EnhancedProjectCard>
       case "Utility":
         return CustomColors.yellowPrimary;
       default:
-        return CustomColors.primaryAccent;
+        return CustomColors.redSecondary;
     }
   }
 
@@ -197,7 +199,7 @@ class _EnhancedProjectCardState extends State<EnhancedProjectCard>
                 // Duration
                 Row(
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.calendar_today_outlined,
                       size: 14,
                       color: CustomColors.whiteSecondary,
@@ -413,7 +415,7 @@ class _ProjectDetailsDialog extends StatelessWidget {
       child: Container(
         constraints: const BoxConstraints(maxWidth: 900),
         decoration: BoxDecoration(
-          gradient: LinearGradient(
+          gradient: const LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
@@ -509,7 +511,7 @@ class _ProjectDetailsDialog extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(width: 10),
-                              Icon(
+                              const Icon(
                                 Icons.calendar_today_outlined,
                                 size: 14,
                                 color: CustomColors.whiteSecondary,

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio/pages/home_page.dart';
 import 'package:portfolio/constants/consts.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
+// import 'package:firebase_core/firebase_core.dart';
+// import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  // await Firebase.initializeApp(
+  //   options: DefaultFirebaseOptions.currentPlatform,
+  // );
   runApp(const MyApp());
 }
 
@@ -23,11 +23,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: CustomColors.scaffoldBG,
         primaryColor: CustomColors.primaryAccent,
-        colorScheme: ColorScheme.dark(
+        colorScheme: const ColorScheme.dark(
           primary: CustomColors.primaryAccent,
           secondary: CustomColors.secondaryAccent,
           surface: CustomColors.cardBG,
-          background: CustomColors.scaffoldBG,
         ),
         textTheme: ThemeData.dark().textTheme.apply(
               bodyColor: CustomColors.textGrey,

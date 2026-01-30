@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously, deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio/constants/consts.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -34,7 +35,8 @@ class _ContactMeState extends State<ContactMe> {
 
   Future<void> sendEmail() async {
     try {
-      final HttpsCallable callable = FirebaseFunctions.instance.httpsCallable('sendEmail');
+      final HttpsCallable callable =
+          FirebaseFunctions.instance.httpsCallable('sendEmail');
       final response = await callable.call(<String, dynamic>{
         'name': _nameController.text,
         'email': _emailController.text,
@@ -131,9 +133,9 @@ class _ContactMeState extends State<ContactMe> {
                 ),
               ],
             ),
-            
+
             const SizedBox(height: 30),
-            
+
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
@@ -167,6 +169,36 @@ class _ContactMeState extends State<ContactMe> {
                         color: CustomColors.primaryAccent,
                         fontWeight: FontWeight.w700,
                         fontSize: 14,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: GestureDetector(
+                      onTap: () {
+                        Clipboard.setData(
+                          const ClipboardData(
+                              text: 'kumarkartik147359@gmail.com'),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Email copied to clipboard!'),
+                            duration: Duration(seconds: 2),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: CustomColors.primaryAccent.withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: const Icon(
+                          Icons.copy_outlined,
+                          color: CustomColors.primaryAccent,
+                          size: 18,
+                        ),
                       ),
                     ),
                   ),
@@ -283,14 +315,14 @@ class _ContactMeState extends State<ContactMe> {
             //   ),
             // ),
             // const SizedBox(height: 30),
-            
+
             // Divider(
             //   color: CustomColors.borderColorLight.withOpacity(0.3),
             //   height: 1,
             // ),
-            
+
             // const SizedBox(height: 25),
-            
+
             // Text(
             //   "Or connect with me on",
             //   style: GoogleFonts.ubuntu(
@@ -299,9 +331,9 @@ class _ContactMeState extends State<ContactMe> {
             //     fontWeight: FontWeight.w500,
             //   ),
             // ),
-            
+
             const SizedBox(height: 15),
-            
+
             Container(
               padding: const EdgeInsets.all(15),
               decoration: BoxDecoration(
@@ -324,7 +356,8 @@ class _ContactMeState extends State<ContactMe> {
                   _buildSocialButton(
                     icon: "assets/icons/facebook.png",
                     color: const Color(0xFF1877F2),
-                    url: "https://www.facebook.com/profile.php?id=100009156546709",
+                    url:
+                        "https://www.facebook.com/profile.php?id=100009156546709",
                   ),
                   _buildSocialButton(
                     icon: "assets/icons/discord.png",
@@ -339,13 +372,13 @@ class _ContactMeState extends State<ContactMe> {
                   _buildSocialButton(
                     icon: "assets/icons/gmail.png",
                     color: const Color(0xFFEA4335),
-                    url: "https://mail.google.com/mail/u/0/#all?compose=GTvVlcRwRrlnKMBLBwTJGkSjJwrcgFHKBVzlRltxblZdQlRnxNLcSHPrWbljSPwpZmQCdrRZgtBrR",
+                    url:
+                        "https://mail.google.com/mail/u/0/#all?compose=GTvVlcRwRrlnKMBLBwTJGkSjJwrcgFHKBVzlRltxblZdQlRnxNLcSHPrWbljSPwpZmQCdrRZgtBrR",
                   ),
                   _buildSocialButton(
-                    icon: "assets/icons/whatsapp.jpeg", 
-                    color: const Color(0xFF25D366), 
-                    url: "https://wa.me/+918434376401"
-                  ),
+                      icon: "assets/icons/whatsapp.jpeg",
+                      color: const Color(0xFF25D366),
+                      url: "https://wa.me/+918434376401"),
                 ],
               ),
             ),

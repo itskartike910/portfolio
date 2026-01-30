@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -100,7 +102,7 @@ class _MyProfileState extends State<MyProfile> with SingleTickerProviderStateMix
               // Animated Roles
               Row(
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.code_outlined,
                     color: CustomColors.primaryAccent,
                     size: 28,
@@ -225,7 +227,7 @@ class _MyProfileState extends State<MyProfile> with SingleTickerProviderStateMix
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
+                const Icon(
                   Icons.code_outlined,
                   color: CustomColors.primaryAccent,
                   size: 20,
@@ -291,7 +293,7 @@ class _MyProfileState extends State<MyProfile> with SingleTickerProviderStateMix
               runSpacing: 10,
               alignment: WrapAlignment.center,
               children: [
-                _buildStatChip("2+ Years", "Experience", CustomColors.primaryAccent),
+                _buildStatChip("1+ Years", "Experience", CustomColors.primaryAccent),
                 _buildStatChip("10+", "Projects", CustomColors.greenAccent),
                 _buildStatChip("1800+", "Problems", CustomColors.yellowPrimary),
               ],
@@ -332,7 +334,7 @@ class _MyProfileState extends State<MyProfile> with SingleTickerProviderStateMix
                     ),
                   ),
                   child: Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                       color: CustomColors.scaffoldBG,
                     ),
