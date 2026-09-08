@@ -1,9 +1,11 @@
 // ignore_for_file: deprecated_member_use
 
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio/constants/consts.dart';
 import 'package:portfolio/constants/project_data.dart';
+import 'package:portfolio/helpers/glass_card.dart';
 import 'package:portfolio/helpers/project_card.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
@@ -32,13 +34,11 @@ class _ProjectsState extends State<Projects> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(
-        vertical: 30,
-        horizontal: 20,
-      ),
+    return NeonGlassCard(
       width: double.maxFinite,
-      decoration: CustomColors.cardDecoration1,
+      padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+      primaryGlow: CustomColors.primaryAccent,
+      secondaryGlow: CustomColors.purpleAccent,
       child: Column(
         children: [
           // Category Filter Chips
@@ -53,34 +53,30 @@ class _ProjectsState extends State<Projects> with TickerProviderStateMixin {
                 child: InkWell(
                   onTap: () => _filterProjects(category),
                   borderRadius: BorderRadius.circular(20),
-                  child: Container(
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: BackdropFilter(
+                      filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
+                      child: Container(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 10,
+                      horizontal: 16,
+                      vertical: 9,
                     ),
                     decoration: BoxDecoration(
-                      gradient: isSelected
-                          ? const LinearGradient(
-                              colors: [
-                                CustomColors.primaryAccent,
-                                CustomColors.purpleAccent,
-                              ],
-                            )
-                          : null,
                       color: isSelected
-                          ? null
-                          : CustomColors.cardBGLight.withOpacity(0.5),
+                          ? CustomColors.primaryAccent.withOpacity(0.2)
+                          : const Color(0x0AFFFFFF),
                       borderRadius: BorderRadius.circular(20),
                       border: Border.all(
                         color: isSelected
-                            ? CustomColors.primaryAccent
-                            : CustomColors.borderColorLight.withOpacity(0.3),
-                        width: 1.5,
+                            ? CustomColors.primaryAccent.withOpacity(0.6)
+                            : const Color(0x18FFFFFF),
+                        width: 1,
                       ),
                       boxShadow: isSelected
                           ? [
                               BoxShadow(
-                                color: CustomColors.primaryAccent.withOpacity(0.3),
+                                color: CustomColors.primaryAccent.withOpacity(0.2),
                                 blurRadius: 12,
                                 offset: const Offset(0, 4),
                               ),
@@ -131,6 +127,8 @@ class _ProjectsState extends State<Projects> with TickerProviderStateMixin {
                             ),
                           ),
                       ],
+                    ),
+                      ),
                     ),
                   ),
                 ),
@@ -183,20 +181,16 @@ class _ProjectsState extends State<Projects> with TickerProviderStateMixin {
 
   IconData _getCategoryIcon(String category) {
     switch (category) {
-      case "All":
-        return Icons.apps_outlined;
-      case "Machine Learning":
-        return Icons.psychology_outlined;
-      case "Mobile Development":
-        return Icons.smartphone_outlined;
-      case "Web Development":
-        return Icons.web_outlined;
-      case "Game Development":
-        return Icons.sports_esports_outlined;
-      case "Utility":
-        return Icons.build_outlined;
-      default:
-        return Icons.code_outlined;
+      case "All": return Icons.apps_outlined;
+      case "Desktop & AI Agents": return Icons.computer_outlined;
+      case "AI & Automation": return Icons.smart_toy_outlined;
+      case "Enterprise": return Icons.business_outlined;
+      case "Machine Learning": return Icons.psychology_outlined;
+      case "Mobile Development": return Icons.smartphone_outlined;
+      case "Web Development": return Icons.web_outlined;
+      case "Game Development": return Icons.sports_esports_outlined;
+      case "Utility": return Icons.build_outlined;
+      default: return Icons.code_outlined;
     }
   }
 }

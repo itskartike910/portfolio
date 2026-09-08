@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio/constants/consts.dart';
+import 'package:portfolio/helpers/glass_card.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Achievements extends StatefulWidget {
@@ -52,13 +53,14 @@ class _AchievementsState extends State<Achievements>
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return NeonGlassCard(
+      width: double.maxFinite,
       padding: EdgeInsets.symmetric(
         vertical: 25,
         horizontal: widget.isMobile ? 15 : 25,
       ),
-      width: double.maxFinite,
-      decoration: CustomColors.cardDecoration1,
+      primaryGlow: CustomColors.yellowPrimary,
+      secondaryGlow: CustomColors.primaryAccent,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -79,7 +81,7 @@ class _AchievementsState extends State<Achievements>
               _buildStatCard(
                 index: 0,
                 platform: "LeetCode",
-                rating: "1814",
+                rating: "1829",
                 achievement: "Maximum Rating",
                 icon: Icons.emoji_events_outlined,
                 color: CustomColors.yellowPrimary,
@@ -197,32 +199,33 @@ class _AchievementsState extends State<Achievements>
     return Row(
       children: [
         Container(
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.all(9),
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                color.withOpacity(0.3),
-                color.withOpacity(0.1),
-              ],
-            ),
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: color.withOpacity(0.5),
-            ),
+            color: color.withOpacity(0.12),
+            borderRadius: BorderRadius.circular(11),
+            border: Border.all(color: color.withOpacity(0.3)),
           ),
-          child: Icon(
-            icon,
-            color: color,
-            size: 24,
-          ),
+          child: Icon(icon, color: color, size: 20),
         ),
         const SizedBox(width: 12),
         Text(
           title,
-          style: GoogleFonts.playfairDisplay(
+          style: GoogleFonts.inter(
             color: CustomColors.whitePrimary,
-            fontSize: widget.isMobile ? 20 : 24,
+            fontSize: widget.isMobile ? 18 : 20,
             fontWeight: FontWeight.w700,
+            letterSpacing: 0.2,
+          ),
+        ),
+        const SizedBox(width: 14),
+        Expanded(
+          child: Container(
+            height: 1,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [color.withOpacity(0.4), Colors.transparent],
+              ),
+            ),
           ),
         ),
       ],
