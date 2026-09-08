@@ -30,15 +30,53 @@ class ProjectData {
 
 // All Projects Data
 final List<ProjectData> allProjects = [
-  // AI & Web Automation (Most Recent)
+  // ── TIER 1: Flagship AI & System Projects ────────────────────────────────
+
   ProjectData(
-    title: "AI Web Automation Agent (Browser Extension)",
-    category: "AI & Automation",
-    duration: "Aug 2025 - Oct 2025",
+    title: "OpenSarthi — Cross-Platform AI Agent & Assistant",
+    category: "Desktop & AI Agents",
+    duration: "May 2026 – Present",
     description:
-        "An intelligent universal Chromium extension that automates web tasks using advanced multi-agent AI system with natural language processing.",
+        "Open-source cross-platform AI agent with voice interaction, desktop automation, and multi-provider LLM orchestration.",
     detailedDescription:
-        "An advanced AI-powered browser extension that executes autonomous web workflows from natural language tasks. Built as a universal Chromium extension supporting Chrome, Edge, Brave, and all Chromium-based browsers including Wootzapp Browser for Android. Features a sophisticated multi-agent AI system with Task Router, Planner, Navigator, and Validator agents. Enables social media automation, e-commerce shopping, content discovery, and general web navigation with real-time task tracking and chat interface.",
+        "OpenSarthi is an open-source AI desktop agent designed to bridge LLM reasoning with real-world computer interaction. It combines conversational and voice interfaces, multi-provider LLM orchestration, system control, and automation into a cross-platform assistant. Architected using Tauri, React, TypeScript, FastAPI, Python, and Rust, targeting Linux, Windows, macOS, and Android. Features an agentic execution framework with multithreaded task scheduling, self-healing workflows, and real-time streaming responses.",
+    technologies: [
+      "Tauri",
+      "React",
+      "TypeScript",
+      "Python",
+      "FastAPI",
+      "Rust",
+      "PydanticAI",
+      "LangGraph",
+      "WebSockets",
+      "SQLite",
+      "LLM Integration",
+      "Agentic AI",
+    ],
+    keyFeatures: [
+      "Multi-provider LLM orchestration: Gemini, OpenAI, Anthropic, Groq, OpenRouter, and Ollama",
+      "Agentic execution framework using PydanticAI and LangGraph with multithreaded task scheduling",
+      "Voice interaction pipeline with accessibility-based system control",
+      "Conversational memory, token tracking, and configurable agent capabilities",
+      "Cross-platform architecture: Linux, Windows, macOS, and Android",
+      "Real-time streaming responses with concurrent tool execution and self-healing workflows",
+      "Native desktop and mobile runtime support with Tauri + Rust backend",
+    ],
+    githubUrl: "https://github.com/OpenSarthi/opensarthi",
+    projectUrl: "https://github.com/OpenSarthi/opensarthi",
+    webAvailable: false,
+    androidAvailable: true,
+  ),
+
+  ProjectData(
+    title: "OmniBrowse — AI Browser Automation Agent",
+    category: "AI & Automation",
+    duration: "Aug 2025 – Oct 2025",
+    description:
+        "Intelligent browser automation agent for multi-step web workflows across Chromium-based browsers using natural language tasks.",
+    detailedDescription:
+        "OmniBrowse is an AI-driven browser extension that executes autonomous web workflows from natural language tasks. Built as a universal Chromium extension supporting Chrome, Edge, Brave, and all Chromium-based browsers. Features sophisticated multi-agent AI system with Task Router, Planner, Navigator, and Validator agents. Implements advanced page analysis and DOM understanding to handle navigation, form actions, and dynamic interactions. Designed task execution through renderer APIs with backend integration for authentication and usage control.",
     technologies: [
       "React",
       "JavaScript",
@@ -50,19 +88,16 @@ final List<ProjectData> allProjects = [
       "DOM Analysis",
       "Webpack",
       "API Integration",
-      "Web Development"
+      "Web Development",
     ],
     keyFeatures: [
       "Multi-Agent AI System: Task Router, Planner, Navigator, and Validator agents",
-      "Universal Chromium Compatibility: Works on Chrome, Edge, Brave, Opera, Vivaldi, and Wootzapp Browser",
+      "Universal Chromium Compatibility: Chrome, Edge, Brave, Opera, Vivaldi, and Wootzapp Browser",
       "Interactive Sidebar Interface: Real-time task execution and chat with AI agents",
       "Social Media Automation: Automated posting on X/Twitter, LinkedIn, Facebook",
       "E-commerce Automation: Product search, cart management, order placement",
-      "Content Discovery: YouTube search, research tasks, web navigation",
       "Smart DOM Analysis: Advanced element targeting using buildDomTree engine",
-      "Chat History & Persistent Storage: Full conversation management",
       "Task Status Tracking: Real-time progress updates and execution monitoring",
-      "Mobile Optimized: Touch-friendly interface for desktop and mobile browsers",
       "Multi-LLM Support: Gemini, Claude, and OpenAI integration",
     ],
     githubUrl: "https://github.com/itskartike910/ai-chatting-agent",
@@ -71,7 +106,42 @@ final List<ProjectData> allProjects = [
     androidAvailable: true,
   ),
 
-  // Machine Learning Projects
+  ProjectData(
+    title: "TRL Assessment Platform — DRDO Enterprise System",
+    category: "Enterprise",
+    duration: "Mar 2026 – May 2026",
+    description:
+        "Full-stack enterprise platform for a DRDO-sponsored Technology Readiness Level (TRL) assessment system, built at IIM Ranchi.",
+    detailedDescription:
+        "Technology Readiness Level Assessment Platform — a full-stack enterprise web application developed for a DRDO-sponsored project to digitize and manage multi-stage TRL assessments. Supports project lifecycle management, assessment workflows, reporting, and user administration with role-based access control across 3 organizational roles. Built with React, TypeScript, Flask, SQLAlchemy, and PostgreSQL with JWT-based authentication and 30+ RESTful APIs covering 13+ relational entities.",
+    technologies: [
+      "React",
+      "TypeScript",
+      "Flask",
+      "Python",
+      "SQLAlchemy",
+      "PostgreSQL",
+      "JWT",
+      "RBAC",
+      "REST APIs",
+    ],
+    keyFeatures: [
+      "30+ RESTful APIs with JWT authentication and role-based access control (RBAC)",
+      "3 organizational roles with role-aware dashboards and workflow automation",
+      "Multi-phase TRL assessment workflow with scheduling and notification services",
+      "Report generation and data export capabilities (~60% reduction in manual tracking effort)",
+      "13+ relational entities with optimized PostgreSQL data models",
+      "Secure session management and user administration module",
+      "Project lifecycle management from submission to assessment completion",
+    ],
+    githubUrl: null,
+    projectUrl: null,
+    webAvailable: true,
+    androidAvailable: false,
+  ),
+
+  // ── TIER 2: AI & Machine Learning ────────────────────────────────────────
+
   ProjectData(
     title: "Few-Shot Skin Cancer Classification",
     category: "Machine Learning",
@@ -102,36 +172,8 @@ final List<ProjectData> allProjects = [
     androidAvailable: false,
   ),
 
-  ProjectData(
-    title: "Handwritten Digit Recognizer",
-    category: "Machine Learning",
-    duration: "May 2023 - July 2023",
-    description:
-        "A machine learning model to recognize handwritten digits and numbers with high accuracy.",
-    detailedDescription:
-        "Built a robust machine learning model using Python and popular ML libraries to recognize handwritten digits from the MNIST dataset. The model achieves high accuracy through careful preprocessing, feature engineering, and neural network architecture design.",
-    technologies: [
-      "Python",
-      "TensorFlow",
-      "Keras",
-      "NumPy",
-      "Pandas",
-      "Matplotlib",
-      "Jupyter Notebook"
-    ],
-    keyFeatures: [
-      "High accuracy digit recognition using MNIST dataset",
-      "Neural network implementation with multiple layers",
-      "Real-time digit prediction capabilities",
-      "Data preprocessing and augmentation techniques",
-      "Visualization of training progress and results",
-    ],
-    githubUrl: "https://github.com/itskartike910/Handwritten_digit_recogniser",
-    webAvailable: false,
-    androidAvailable: false,
-  ),
+  // ── TIER 3: Mobile Application Projects ──────────────────────────────────
 
-  // Mobile Application Projects
   ProjectData(
     title: "ChatApp (ChatBox)",
     category: "Mobile Development",
@@ -247,9 +289,9 @@ final List<ProjectData> allProjects = [
     androidAvailable: true,
   ),
 
-  // Game Development
-  ProjectData(
+  // ── Game Development ──────────────────────────────────────────────────────
 
+  ProjectData(
     title: "Tic Tac Toe",
     category: "Game Development",
     duration: "March 2024",
@@ -279,7 +321,37 @@ final List<ProjectData> allProjects = [
     androidAvailable: true,
   ),
 
-  // Web Development
+  // ── Web Development ───────────────────────────────────────────────────────
+
+  ProjectData(
+    title: "Handwritten Digit Recognizer",
+    category: "Machine Learning",
+    duration: "May 2023 - July 2023",
+    description:
+        "A machine learning model to recognize handwritten digits and numbers with high accuracy.",
+    detailedDescription:
+        "Built a robust machine learning model using Python and popular ML libraries to recognize handwritten digits from the MNIST dataset. The model achieves high accuracy through careful preprocessing, feature engineering, and neural network architecture design.",
+    technologies: [
+      "Python",
+      "TensorFlow",
+      "Keras",
+      "NumPy",
+      "Pandas",
+      "Matplotlib",
+      "Jupyter Notebook"
+    ],
+    keyFeatures: [
+      "High accuracy digit recognition using MNIST dataset",
+      "Neural network implementation with multiple layers",
+      "Real-time digit prediction capabilities",
+      "Data preprocessing and augmentation techniques",
+      "Visualization of training progress and results",
+    ],
+    githubUrl: "https://github.com/itskartike910/Handwritten_digit_recogniser",
+    webAvailable: false,
+    androidAvailable: false,
+  ),
+
   ProjectData(
     title: "Portfolio Web",
     category: "Web Development",
@@ -340,7 +412,8 @@ final List<ProjectData> allProjects = [
     androidAvailable: false,
   ),
 
-  // Utility Apps
+  // ── Utility Apps ─────────────────────────────────────────────────────────
+
   ProjectData(
     title: "Multipurpose Calculator",
     category: "Utility",
@@ -369,11 +442,14 @@ final List<ProjectData> allProjects = [
 // Categories for filtering
 final List<String> projectCategories = [
   "All",
+  "Desktop & AI Agents",
   "AI & Automation",
+  "Enterprise",
   "Machine Learning",
   "Mobile Development",
   "Web Development",
   "Game Development",
   "Utility",
 ];
+
 
