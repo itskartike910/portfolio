@@ -1,517 +1,448 @@
 // ignore_for_file: use_build_context_synchronously, deprecated_member_use
 
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio/constants/consts.dart';
+import 'package:portfolio/helpers/glass_card.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:cloud_functions/cloud_functions.dart';
 
 class ContactMe extends StatefulWidget {
   final bool isMobile;
-
   const ContactMe({super.key, required this.isMobile});
 
   @override
-  // ignore: library_private_types_in_public_api
-  _ContactMeState createState() => _ContactMeState();
+  State<ContactMe> createState() => _ContactMeState();
 }
 
 class _ContactMeState extends State<ContactMe> {
-  final _formKey = GlobalKey<FormState>();
-  final _nameController = TextEditingController();
-  final _emailController = TextEditingController();
-  final _subjectController = TextEditingController();
-  final _messageController = TextEditingController();
+  bool _copied = false;
 
-  @override
-  void dispose() {
-    _nameController.dispose();
-    _emailController.dispose();
-    _subjectController.dispose();
-    _messageController.dispose();
-    super.dispose();
-  }
-
-  Future<void> sendEmail() async {
-    try {
-      final HttpsCallable callable =
-          FirebaseFunctions.instance.httpsCallable('sendEmail');
-      final response = await callable.call(<String, dynamic>{
-        'name': _nameController.text,
-        'email': _emailController.text,
-        'subject': _subjectController.text,
-        'message': _messageController.text,
-        'to': 'kumarkartik147359@gmail.com',
-      });
-      if (response.data['success']) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Message sent successfully!')),
-        );
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Failed to send message.')),
-        );
-      }
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('An unexpected error occurred.')),
-      );
-    }
+  void _copyEmail() {
+    Clipboard.setData(const ClipboardData(text: 'kumarkartik147359@gmail.com'));
+    setState(() => _copied = true);
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: const Color(0xFF13132B),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        content: Row(
+          children: [
+            const Icon(Icons.check_circle_rounded, color: CustomColors.greenAccent, size: 18),
+            const SizedBox(width: 10),
+            Text(
+              'Email copied to clipboard!',
+              style: GoogleFonts.inter(color: Colors.white, fontWeight: FontWeight.w600),
+            ),
+          ],
+        ),
+        duration: const Duration(seconds: 2),
+      ),
+    );
+    Future.delayed(const Duration(seconds: 3), () {
+      if (mounted) setState(() => _copied = false);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return NeonGlassCard(
+      width: double.maxFinite,
       padding: EdgeInsets.symmetric(
-        vertical: widget.isMobile ? 25 : 35,
-        horizontal: widget.isMobile ? 20 : 30,
+        vertical: widget.isMobile ? 24 : 34,
+        horizontal: widget.isMobile ? 18 : 32,
       ),
-      alignment: Alignment.center,
-      width: MediaQuery.of(context).size.width > 800
-          ? MediaQuery.of(context).size.width * 0.6
-          : MediaQuery.of(context).size.width * 0.9,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            CustomColors.cardBGLight.withOpacity(0.8),
-            CustomColors.cardBG.withOpacity(0.6),
-          ],
-        ),
-        borderRadius: BorderRadius.circular(28),
-        border: Border.all(
-          color: CustomColors.primaryAccent.withOpacity(0.3),
-          width: 2,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: CustomColors.primaryAccent.withOpacity(0.1),
-            blurRadius: 30,
-            offset: const Offset(0, 15),
-          ),
-        ],
-      ),
-      child: Form(
-        key: _formKey,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // Header
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        CustomColors.primaryAccent.withOpacity(0.3),
-                        CustomColors.purpleAccent.withOpacity(0.3),
-                      ],
+      primaryGlow: CustomColors.primaryAccent,
+      secondaryGlow: CustomColors.purpleAccent,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+              // ── Header ──────────────────────────────────────────────────
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: CustomColors.primaryAccent.withOpacity(0.12),
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(
+                        color: CustomColors.primaryAccent.withOpacity(0.3),
+                      ),
                     ),
-                    borderRadius: BorderRadius.circular(14),
-                    border: Border.all(
-                      color: CustomColors.primaryAccent.withOpacity(0.5),
+                    child: const Icon(
+                      Icons.mail_outline_rounded,
+                      color: CustomColors.primaryAccent,
+                      size: 24,
                     ),
                   ),
-                  child: const Icon(
-                    Icons.email_outlined,
-                    color: CustomColors.primaryAccent,
-                    size: 28,
+                  const SizedBox(width: 14),
+                  Text(
+                    "Let's Connect",
+                    style: GoogleFonts.inter(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w800,
+                      fontSize: widget.isMobile ? 22 : 26,
+                      letterSpacing: -0.5,
+                    ),
                   ),
-                ),
-                const SizedBox(width: 12),
-                Text(
-                  "Get In Touch",
-                  style: GoogleFonts.playfairDisplay(
-                    color: CustomColors.whitePrimary,
-                    fontWeight: FontWeight.w800,
-                    fontSize: widget.isMobile ? 24 : 28,
-                  ),
-                ),
-              ],
-            ),
+                ],
+              ),
 
-            const SizedBox(height: 30),
+              const SizedBox(height: 12),
 
-            Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: CustomColors.primaryAccent.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(16),
-                border: Border.all(
-                  color: CustomColors.primaryAccent.withOpacity(0.3),
-                  width: 1.5,
+              Text(
+                "Open to collaborating on systems architecture, Chromium optimization, and agentic AI projects.",
+                textAlign: TextAlign.center,
+                style: GoogleFonts.inter(
+                  color: CustomColors.whiteSecondary,
+                  fontSize: widget.isMobile ? 12.5 : 14,
+                  fontWeight: FontWeight.w400,
+                  height: 1.5,
                 ),
               ),
-              child: Row(
-                children: [
-                  const Icon(
-                    Icons.mail_outline,
-                    color: CustomColors.primaryAccent,
-                    size: 20,
+
+              const SizedBox(height: 24),
+
+              // ── Email Quick Card with Copy ──────────────────────────────
+              MouseRegion(
+                cursor: SystemMouseCursors.click,
+                child: GestureDetector(
+                  onTap: _copyEmail,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(16),
+                    child: BackdropFilter(
+                      filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
+                        decoration: BoxDecoration(
+                          color: const Color(0x0AFFFFFF),
+                          borderRadius: BorderRadius.circular(16),
+                          border: Border.all(
+                            color: _copied
+                                ? CustomColors.greenAccent.withOpacity(0.5)
+                                : CustomColors.primaryAccent.withOpacity(0.3),
+                            width: 1.2,
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: (_copied
+                                      ? CustomColors.greenAccent
+                                      : CustomColors.primaryAccent)
+                                  .withOpacity(0.1),
+                              blurRadius: 20,
+                              offset: const Offset(0, 6),
+                            ),
+                          ],
+                        ),
+                        child: Row(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: CustomColors.primaryAccent.withOpacity(0.15),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: const Icon(
+                                Icons.alternate_email_rounded,
+                                color: CustomColors.primaryAccent,
+                                size: 18,
+                              ),
+                            ),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Direct Email",
+                                    style: GoogleFonts.inter(
+                                      color: CustomColors.whiteSecondary,
+                                      fontSize: 11,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  Text(
+                                    "kumarkartik147359@gmail.com",
+                                    style: GoogleFonts.jetBrainsMono(
+                                      color: CustomColors.whitePrimary,
+                                      fontSize: widget.isMobile ? 12 : 14,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            AnimatedContainer(
+                              duration: const Duration(milliseconds: 200),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 10,
+                                vertical: 6,
+                              ),
+                              decoration: BoxDecoration(
+                                color: _copied
+                                    ? CustomColors.greenAccent.withOpacity(0.18)
+                                    : CustomColors.primaryAccent.withOpacity(0.14),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(
+                                    _copied
+                                        ? Icons.check_rounded
+                                        : Icons.copy_rounded,
+                                    color: _copied
+                                        ? CustomColors.greenAccent
+                                        : CustomColors.primaryAccent,
+                                    size: 14,
+                                  ),
+                                  const SizedBox(width: 5),
+                                  Text(
+                                    _copied ? "Copied" : "Copy",
+                                    style: GoogleFonts.inter(
+                                      color: _copied
+                                          ? CustomColors.greenAccent
+                                          : CustomColors.primaryAccent,
+                                      fontSize: 11,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
-                  const SizedBox(width: 10),
-                  Text(
-                    "To: ",
-                    style: GoogleFonts.ubuntu(
-                      color: CustomColors.whiteSecondary,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 14,
+                ),
+              ),
+
+              const SizedBox(height: 20),
+
+              // ── Shoot an Email Button ────────────────────────────────────
+              MouseRegion(
+                cursor: SystemMouseCursors.click,
+                child: GestureDetector(
+                  onTap: () => _launchURL("mailto:kumarkartik147359@gmail.com"),
+                  child: Container(
+                    width: double.maxFinite,
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    decoration: BoxDecoration(
+                      color: CustomColors.primaryAccent.withOpacity(0.14),
+                      borderRadius: BorderRadius.circular(14),
+                      border: Border.all(
+                        color: CustomColors.primaryAccent.withOpacity(0.35),
+                        width: 1,
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: CustomColors.primaryAccent.withOpacity(0.15),
+                          blurRadius: 20,
+                          offset: const Offset(0, 6),
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(Icons.send_rounded, color: CustomColors.primaryAccent, size: 16),
+                        const SizedBox(width: 8),
+                        Text(
+                          "Shoot an Email",
+                          style: GoogleFonts.inter(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 14,
+                            letterSpacing: 0.3,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 24),
+
+              // ── Divider ──────────────────────────────────────────────────
+              Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      height: 1,
+                      color: Colors.white.withOpacity(0.08),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    child: Text(
+                      "OR FIND ME ON",
+                      style: GoogleFonts.inter(
+                        color: CustomColors.whiteSecondary.withOpacity(0.7),
+                        fontSize: 10,
+                        fontWeight: FontWeight.w600,
+                        letterSpacing: 0.8,
+                      ),
                     ),
                   ),
                   Expanded(
-                    child: Text(
-                      "kumarkartik147359@gmail.com",
-                      style: GoogleFonts.ubuntu(
-                        color: CustomColors.primaryAccent,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 14,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  MouseRegion(
-                    cursor: SystemMouseCursors.click,
-                    child: GestureDetector(
-                      onTap: () {
-                        Clipboard.setData(
-                          const ClipboardData(
-                              text: 'kumarkartik147359@gmail.com'),
-                        );
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Email copied to clipboard!'),
-                            duration: Duration(seconds: 2),
-                          ),
-                        );
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          color: CustomColors.primaryAccent.withOpacity(0.2),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: const Icon(
-                          Icons.copy_outlined,
-                          color: CustomColors.primaryAccent,
-                          size: 18,
-                        ),
-                      ),
+                    child: Container(
+                      height: 1,
+                      color: Colors.white.withOpacity(0.08),
                     ),
                   ),
                 ],
               ),
-            ),
-            // const SizedBox(height: 20),
-            // _buildTextField(
-            //   controller: _nameController,
-            //   label: "Name",
-            //   hint: "Enter your name",
-            //   icon: Icons.person_outline,
-            //   validator: (value) {
-            //     if (value == null || value.isEmpty) {
-            //       return 'Please enter your name';
-            //     }
-            //     return null;
-            //   },
-            // ),
-            // const SizedBox(height: 15),
-            // _buildTextField(
-            //   controller: _emailController,
-            //   label: "Email",
-            //   hint: "Enter your email",
-            //   icon: Icons.email_outlined,
-            //   validator: (value) {
-            //     if (value == null || value.isEmpty) {
-            //       return 'Please enter your email';
-            //     } else if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
-            //       return 'Please enter a valid email';
-            //     }
-            //     return null;
-            //   },
-            // ),
-            // const SizedBox(height: 15),
-            // _buildTextField(
-            //   controller: _subjectController,
-            //   label: "Subject",
-            //   hint: "What's this about?",
-            //   icon: Icons.subject_outlined,
-            //   validator: (value) {
-            //     if (value == null || value.isEmpty) {
-            //       return 'Please enter a subject';
-            //     }
-            //     return null;
-            //   },
-            // ),
-            // const SizedBox(height: 15),
-            // _buildTextField(
-            //   controller: _messageController,
-            //   label: "Message",
-            //   hint: "Your message here...",
-            //   icon: Icons.message_outlined,
-            //   maxLines: 6,
-            //   validator: (value) {
-            //     if (value == null || value.isEmpty) {
-            //       return 'Please enter your message';
-            //     }
-            //     return null;
-            //   },
-            // ),
-            // const SizedBox(height: 25),
-            // Container(
-            //   width: double.maxFinite,
-            //   decoration: BoxDecoration(
-            //     gradient: LinearGradient(
-            //       colors: [
-            //         CustomColors.primaryAccent,
-            //         CustomColors.purpleAccent,
-            //       ],
-            //     ),
-            //     borderRadius: BorderRadius.circular(16),
-            //     boxShadow: [
-            //       BoxShadow(
-            //         color: CustomColors.primaryAccent.withOpacity(0.4),
-            //         blurRadius: 15,
-            //         offset: const Offset(0, 8),
-            //       ),
-            //     ],
-            //   ),
-            //   child: ElevatedButton(
-            //     onPressed: () {
-            //       if (_formKey.currentState!.validate()) {
-            //         sendEmail();
-            //       }
-            //     },
-            //     style: ElevatedButton.styleFrom(
-            //       backgroundColor: Colors.transparent,
-            //       shadowColor: Colors.transparent,
-            //       padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 18),
-            //       shape: RoundedRectangleBorder(
-            //         borderRadius: BorderRadius.circular(16),
-            //       ),
-            //     ),
-            //     child: Row(
-            //       mainAxisAlignment: MainAxisAlignment.center,
-            //       children: [
-            //         Icon(
-            //           Icons.send_rounded,
-            //           color: Colors.white,
-            //           size: 22,
-            //         ),
-            //         const SizedBox(width: 12),
-            //         Text(
-            //           'Send Message',
-            //           style: GoogleFonts.ubuntu(
-            //             color: Colors.white,
-            //             fontWeight: FontWeight.w700,
-            //             fontSize: 18,
-            //           ),
-            //         ),
-            //       ],
-            //     ),
-            //   ),
-            // ),
-            // const SizedBox(height: 30),
 
-            // Divider(
-            //   color: CustomColors.borderColorLight.withOpacity(0.3),
-            //   height: 1,
-            // ),
+              const SizedBox(height: 18),
 
-            // const SizedBox(height: 25),
-
-            // Text(
-            //   "Or connect with me on",
-            //   style: GoogleFonts.ubuntu(
-            //     color: CustomColors.whiteSecondary,
-            //     fontSize: 14,
-            //     fontWeight: FontWeight.w500,
-            //   ),
-            // ),
-
-            const SizedBox(height: 15),
-
-            Container(
-              padding: const EdgeInsets.all(15),
-              decoration: BoxDecoration(
-                color: CustomColors.cardBGLight.withOpacity(0.3),
-                borderRadius: BorderRadius.circular(16),
-                border: Border.all(
-                  color: CustomColors.borderColorLight.withOpacity(0.2),
-                ),
-              ),
-              child: Wrap(
+              // ── Social & Channel Badges ──────────────────────────────────
+              const Wrap(
                 alignment: WrapAlignment.center,
-                spacing: 12,
-                runSpacing: 12,
+                spacing: 10,
+                runSpacing: 10,
                 children: [
-                  _buildSocialButton(
-                    icon: "assets/icons/instagram.png",
-                    color: const Color(0xFFE4405F),
-                    url: "https://www.instagram.com/its_kartike/",
+                  _SocialPill(
+                    name: "LinkedIn",
+                    iconPath: "assets/icons/linkedin.png",
+                    accent: Color(0xFF0A66C2),
+                    url: "https://www.linkedin.com/in/kartikskr/",
                   ),
-                  _buildSocialButton(
-                    icon: "assets/icons/facebook.png",
-                    color: const Color(0xFF1877F2),
-                    url:
-                        "https://www.facebook.com/profile.php?id=100009156546709",
+                  _SocialPill(
+                    name: "GitHub",
+                    iconPath: "assets/icons/github.jpg",
+                    accent: Color(0xFF7B2FFE),
+                    url: "https://github.com/itskartike910",
                   ),
-                  _buildSocialButton(
-                    icon: "assets/icons/discord.png",
-                    color: const Color(0xFF5865F2),
-                    url: "https://discord.com/channels/kartikkumar910",
-                  ),
-                  _buildSocialButton(
-                    icon: "assets/icons/telegram.png",
-                    color: const Color(0xFF0088CC),
+                  _SocialPill(
+                    name: "Telegram",
+                    iconPath: "assets/icons/telegram.png",
+                    accent: Color(0xFF0088CC),
                     url: "https://t.me/itskartike910",
                   ),
-                  _buildSocialButton(
-                    icon: "assets/icons/gmail.png",
-                    color: const Color(0xFFEA4335),
-                    url:
-                        "https://mail.google.com/mail/u/0/#all?compose=GTvVlcRwRrlnKMBLBwTJGkSjJwrcgFHKBVzlRltxblZdQlRnxNLcSHPrWbljSPwpZmQCdrRZgtBrR",
+                  _SocialPill(
+                    name: "Discord",
+                    iconPath: "assets/icons/discord.png",
+                    accent: Color(0xFF5865F2),
+                    url: "https://discord.com/channels/kartikkumar910",
                   ),
-                  _buildSocialButton(
-                      icon: "assets/icons/whatsapp.jpeg",
-                      color: const Color(0xFF25D366),
-                      url: "https://wa.me/+918434376401"),
+                  _SocialPill(
+                    name: "WhatsApp",
+                    iconPath: "assets/icons/whatsapp.jpeg",
+                    accent: Color(0xFF25D366),
+                    url: "https://wa.me/+918434376401",
+                  ),
+                  _SocialPill(
+                    name: "Instagram",
+                    iconPath: "assets/icons/instagram.png",
+                    accent: Color(0xFFE4405F),
+                    url: "https://www.instagram.com/its_kartike/",
+                  ),
                 ],
               ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  // ignore: unused_element
-  Widget _buildTextField({
-    required TextEditingController controller,
-    required String label,
-    required String hint,
-    required IconData icon,
-    int maxLines = 1,
-    String? Function(String?)? validator,
-  }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Icon(
-              icon,
-              color: CustomColors.primaryAccent,
-              size: 18,
-            ),
-            const SizedBox(width: 8),
-            Text(
-              label,
-              style: GoogleFonts.ubuntu(
-                color: CustomColors.textGrey,
-                fontWeight: FontWeight.w600,
-                fontSize: 14,
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 10),
-        TextFormField(
-          controller: controller,
-          maxLines: maxLines,
-          style: GoogleFonts.ubuntu(
-            color: CustomColors.whitePrimary,
-            fontSize: 15,
+            ],
           ),
-          decoration: InputDecoration(
-            hintText: hint,
-            hintStyle: GoogleFonts.ubuntu(
-              color: CustomColors.whiteSecondary.withOpacity(0.5),
-              fontSize: 14,
-            ),
-            filled: true,
-            fillColor: CustomColors.cardBG.withOpacity(0.5),
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 16,
-            ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(14),
-              borderSide: BorderSide(
-                color: CustomColors.borderColorLight.withOpacity(0.3),
-              ),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(14),
-              borderSide: BorderSide(
-                color: CustomColors.borderColorLight.withOpacity(0.3),
-                width: 1.5,
-              ),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(14),
-              borderSide: BorderSide(
-                color: CustomColors.primaryAccent.withOpacity(0.6),
-                width: 2,
-              ),
-            ),
-            errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(14),
-              borderSide: const BorderSide(
-                color: Colors.redAccent,
-                width: 1.5,
-              ),
-            ),
-          ),
-          validator: validator,
-        ),
-        const SizedBox(height: 16),
-      ],
-    );
-  }
-
-  Widget _buildSocialButton({
-    required String icon,
-    required Color color,
-    required String url,
-  }) {
-    return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      child: GestureDetector(
-        onTap: () => _launchURL(url),
-        child: Container(
-          width: 50,
-          height: 50,
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                color.withOpacity(0.2),
-                color.withOpacity(0.1),
-              ],
-            ),
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: color.withOpacity(0.4),
-              width: 1.5,
-            ),
-          ),
-          child: Image.asset(
-            icon,
-            fit: BoxFit.contain,
-          ),
-        ),
-      ),
-    );
-  }
+        );
+      }
 
   Future<void> _launchURL(String url) async {
     final uri = Uri.parse(url);
     if (await canLaunchUrl(uri)) {
       await launchUrl(uri, mode: LaunchMode.externalApplication);
-    } else {}
+    }
+  }
+}
+
+class _SocialPill extends StatefulWidget {
+  final String name;
+  final String iconPath;
+  final Color accent;
+  final String url;
+
+  const _SocialPill({
+    required this.name,
+    required this.iconPath,
+    required this.accent,
+    required this.url,
+  });
+
+  @override
+  State<_SocialPill> createState() => _SocialPillState();
+}
+
+class _SocialPillState extends State<_SocialPill> {
+  bool _hovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) => setState(() => _hovered = true),
+      onExit: (_) => setState(() => _hovered = false),
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: () async {
+          final uri = Uri.parse(widget.url);
+          if (await canLaunchUrl(uri)) {
+            await launchUrl(uri, mode: LaunchMode.externalApplication);
+          }
+        },
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          curve: Curves.easeOut,
+          transform: Matrix4.identity()
+            ..translate(0.0, _hovered ? -3.0 : 0.0),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          decoration: BoxDecoration(
+            color: _hovered
+                ? widget.accent.withOpacity(0.18)
+                : const Color(0x0AFFFFFF),
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+              color: _hovered
+                  ? widget.accent.withOpacity(0.55)
+                  : const Color(0x14FFFFFF),
+              width: 1,
+            ),
+            boxShadow: _hovered
+                ? [
+                    BoxShadow(
+                      color: widget.accent.withOpacity(0.2),
+                      blurRadius: 14,
+                      offset: const Offset(0, 4),
+                    ),
+                  ]
+                : null,
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(5),
+                child: Image.asset(
+                  widget.iconPath,
+                  width: 16,
+                  height: 16,
+                  fit: BoxFit.contain,
+                ),
+              ),
+              const SizedBox(width: 7),
+              Text(
+                widget.name,
+                style: GoogleFonts.inter(
+                  color: _hovered ? Colors.white : CustomColors.whitePrimary,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
