@@ -1,11 +1,11 @@
 {
-    "name": "portfolio",
-    "short_name": "portfolio",
+    "name": "Kartik Kumar | Portfolio",
+    "short_name": "Kartik Kumar",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#0B0B14",
+    "theme_color": "#0B0B14",
+    "description": "Portfolio of Kartik Kumar — Software Development Engineer, AI & Agentic Systems Builder.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

@@ -1,55 +1,326 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
-
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
-
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
-
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
   <base href="$FLUTTER_BASE_HREF">
-
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portfolio of Kartik Kumar — Software Development Engineer, AI & Agentic Systems Builder, Competitive Programmer.">
+  <meta name="theme-color" content="#0B0B14">
 
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="portfolio">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Kartik Kumar">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
 
-  <title>portfolio</title>
+  <title>Kartik Kumar | Portfolio</title>
   <link rel="manifest" href="manifest.json">
 
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      background-color: #0B0B14;
+      color: #FFFFFF;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+    }
+
+    #app-loader {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 50% 45%, rgba(0, 217, 255, 0.08) 0%, rgba(157, 78, 221, 0.08) 45%, #0B0B14 85%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999999;
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    #app-loader.fade-out {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .loader-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 32px 28px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(0, 217, 255, 0.05);
+      max-width: 360px;
+      width: 90%;
+    }
+
+    .loader-avatar-wrapper {
+      position: relative;
+      width: 80px;
+      height: 80px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .loader-avatar-ring {
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, #00D9FF, #9D4EDD, #00D9FF);
+      animation: spin 3s linear infinite;
+      filter: blur(2px);
+      opacity: 0.8;
+    }
+
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+
+    .loader-avatar {
+      position: relative;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #0B0B14;
+      border: 2px solid rgba(255, 255, 255, 0.15);
+      z-index: 1;
+    }
+
+    .loader-name {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: #FFFFFF;
+      margin-bottom: 6px;
+    }
+
+    .loader-subtitle {
+      font-size: 12.5px;
+      color: rgba(255, 255, 255, 0.6);
+      font-weight: 500;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .pulse-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #06FFA5;
+      box-shadow: 0 0 8px #06FFA5;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.3); opacity: 1; }
+    }
+
+    /* Advanced Glowing Progress Bar */
+    .loader {
+      height: 4px;
+      width: 150px;
+      border-radius: 4px;
+      --c: no-repeat linear-gradient(90deg, #00D9FF 0%, #9D4EDD 100%);
+      background: var(--c), var(--c), rgba(255, 255, 255, 0.08);
+      background-size: 60% 100%;
+      box-shadow: 0 0 14px rgba(0, 217, 255, 0.4), 0 0 24px rgba(157, 78, 221, 0.25);
+      animation: l16 2.2s infinite ease-in-out;
+    }
+
+    @keyframes l16 {
+      0%   { background-position: -150% 0, -150% 0; }
+      66%  { background-position: 250% 0, -150% 0; }
+      100% { background-position: 250% 0, 250% 0; }
+    }
+
+    /* Native GPU-Accelerated Glassy Cursor Glow */
+    #cursor-glow {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      pointer-events: none;
+      background: radial-gradient(
+        circle,
+        rgba(0, 217, 255, 0.16) 0%,
+        rgba(123, 47, 254, 0.10) 35%,
+        rgba(255, 0, 127, 0.04) 65%,
+        transparent 100%
+      );
+      filter: blur(35px);
+      transform: translate3d(-1000px, -1000px, 0);
+      opacity: 0;
+      transition: opacity 0.3s ease, width 0.2s ease, height 0.2s ease, background 0.2s ease;
+      z-index: 999999;
+      mix-blend-mode: screen;
+      will-change: transform, opacity;
+    }
+
+    #cursor-dot {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      pointer-events: none;
+      background: radial-gradient(
+        circle,
+        rgba(0, 217, 255, 0.45) 0%,
+        rgba(123, 47, 254, 0.2) 60%,
+        transparent 100%
+      );
+      filter: blur(4px);
+      transform: translate3d(-1000px, -1000px, 0);
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      z-index: 999999;
+      mix-blend-mode: screen;
+      will-change: transform, opacity;
+    }
+  </style>
+
   <script>
-    // The value below is injected by flutter build, do not touch.
     const serviceWorkerVersion = null;
   </script>
-  <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
 </head>
 <body>
+  <!-- Native Hardware-Accelerated Glassy Blurry Cursor Follower -->
+  <div id="cursor-glow" aria-hidden="true"></div>
+  <div id="cursor-dot" aria-hidden="true"></div>
+
+  <!-- Native Dark Preloader -->
+  <div id="app-loader">
+    <div class="loader-card">
+      <div class="loader-avatar-wrapper">
+        <div class="loader-avatar-ring"></div>
+        <img src="favicon.png" alt="Kartik Kumar" class="loader-avatar" onerror="this.src='icons/Icon-192.png'">
+      </div>
+      <div class="loader-name">Kartik Kumar</div>
+      <div class="loader-subtitle">
+        <span class="pulse-dot"></span> Loading Profile...
+      </div>
+      <div class="loader"></div>
+    </div>
+  </div>
+
+  <!-- Native 60/120fps GPU Cursor Follower Engine -->
+  <script>
+    (function() {
+      const glow = document.getElementById('cursor-glow');
+      const dot = document.getElementById('cursor-dot');
+      if (!glow || !dot) return;
+
+      let mouseX = -1000, mouseY = -1000;
+      let glowX = -1000, glowY = -1000;
+      let isVisible = false;
+      let isPressed = false;
+
+      function onPointerMove(e) {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        if (!isVisible) {
+          isVisible = true;
+          glow.style.opacity = '1';
+          dot.style.opacity = '1';
+        }
+        dot.style.transform = `translate3d(${mouseX - 13}px, ${mouseY - 13}px, 0)`;
+      }
+
+      function onPointerDown(e) {
+        isPressed = true;
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        if (!isVisible) {
+          isVisible = true;
+          glow.style.opacity = '1';
+          dot.style.opacity = '1';
+        }
+        glow.style.width = '380px';
+        glow.style.height = '380px';
+        glow.style.background = 'radial-gradient(circle, rgba(0, 217, 255, 0.26) 0%, rgba(123, 47, 254, 0.18) 35%, rgba(255, 0, 127, 0.08) 65%, transparent 100%)';
+      }
+
+      function onPointerUp() {
+        isPressed = false;
+        glow.style.width = '320px';
+        glow.style.height = '320px';
+        glow.style.background = 'radial-gradient(circle, rgba(0, 217, 255, 0.16) 0%, rgba(123, 47, 254, 0.10) 35%, rgba(255, 0, 127, 0.04) 65%, transparent 100%)';
+      }
+
+      window.addEventListener('pointermove', onPointerMove, { passive: true });
+      window.addEventListener('pointerdown', onPointerDown, { passive: true });
+      window.addEventListener('pointerup', onPointerUp, { passive: true });
+      document.addEventListener('mouseleave', () => {
+        isVisible = false;
+        glow.style.opacity = '0';
+        dot.style.opacity = '0';
+      });
+
+      function renderLoop() {
+        if (isVisible) {
+          glowX += (mouseX - glowX) * 0.16;
+          glowY += (mouseY - glowY) * 0.16;
+          const radius = isPressed ? 190 : 160;
+          glow.style.transform = `translate3d(${glowX - radius}px, ${glowY - radius}px, 0)`;
+        }
+        requestAnimationFrame(renderLoop);
+      }
+      requestAnimationFrame(renderLoop);
+    })();
+  </script>
+
   <script>
     window.addEventListener('load', function(ev) {
-      // Download main.dart.js
       _flutter.loader.loadEntrypoint({
         serviceWorker: {
           serviceWorkerVersion: serviceWorkerVersion,
         },
         onEntrypointLoaded: function(engineInitializer) {
           engineInitializer.initializeEngine().then(function(appRunner) {
-            appRunner.runApp();
+            appRunner.runApp().then(function() {
+              // Smoothly fade out the native preloader once Flutter renders
+              const loader = document.getElementById('app-loader');
+              if (loader) {
+                loader.classList.add('fade-out');
+                setTimeout(function() {
+                  if (loader.parentNode) {
+                    loader.parentNode.removeChild(loader);
+                  }
+                }, 500);
+              }
+            });
           });
         }
       });
