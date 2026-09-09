@@ -25,6 +25,8 @@ class _HomePageState extends State<HomePage> {
   bool isMobile = false;
   final ScrollController _scrollController = ScrollController();
   bool _isScrolled = false;
+  double _scrollProgress = 0.0;
+  bool _showBackToTop = false;
 
   final myProfileKey   = GlobalKey();
   final skillKey       = GlobalKey();
@@ -45,10 +47,17 @@ class _HomePageState extends State<HomePage> {
 
   void _onScroll() {
     if (!_scrollController.hasClients) return;
-    final scrolled = _scrollController.offset > 20;
-    if (scrolled != _isScrolled) {
+    final offset = _scrollController.offset;
+    final maxScroll = _scrollController.position.maxScrollExtent;
+    final progress = maxScroll > 0 ? (offset / maxScroll).clamp(0.0, 1.0) : 0.0;
+    final scrolled = offset > 20;
+    final showTop = offset > 250;
+
+    if (scrolled != _isScrolled || showTop != _showBackToTop || (progress - _scrollProgress).abs() > 0.003) {
       setState(() {
         _isScrolled = scrolled;
+        _showBackToTop = showTop;
+        _scrollProgress = progress;
       });
     }
   }
@@ -65,6 +74,15 @@ class _HomePageState extends State<HomePage> {
     Scrollable.ensureVisible(
       key.currentContext!,
       duration: const Duration(milliseconds: 800),
+      curve: Curves.easeInOutCubic,
+    );
+  }
+
+  void _scrollToTop() {
+    if (!_scrollController.hasClients) return;
+    _scrollController.animateTo(
+      0,
+      duration: const Duration(milliseconds: 700),
       curve: Curves.easeInOutCubic,
     );
   }
@@ -137,160 +155,181 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
 
-          // ── 2. Main Scrollable Page Content ────────────────────────────────
+          // ── 2. Main Scrollable Page Content (Single Sleek Scrollbar) ────────
           SafeArea(
             top: false,
-            child: SingleChildScrollView(
-              controller: _scrollController,
-              physics: const BouncingScrollPhysics(),
-              padding: EdgeInsets.only(
-                top: isMobile ? 85 : 95,
-                bottom: 40,
-                left: isMobile ? 10 : 20,
-                right: isMobile ? 10 : 20,
-              ),
-              child: Center(
-                child: ConstrainedBox(
-                  constraints: const BoxConstraints(maxWidth: 1800),
-                  child: Column(
-                    children: [
-                      // ── My Profile ──────────────────────────────────────────
-                      _SectionHeader(
-                        key: myProfileKey,
-                        label: "My Profile",
-                        icon: Icons.person_outline,
-                      ),
-                      const SizedBox(height: 16),
-                      MyProfile(isMobile: isMobile),
-                      const SizedBox(height: 36),
-
-                      // ── Experience & Skills (Side-by-Side on Desktop) ────────
-                      if (!isMobile)
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: Column(
-                                children: [
-                                  _SectionHeader(
-                                    key: experienceKey,
-                                    label: "Experience",
-                                    icon: Icons.work_outline,
-                                  ),
-                                  const SizedBox(height: 16),
-                                  const Experience(isMobile: false),
-                                ],
-                              ),
-                            ),
-                            const SizedBox(width: 20),
-                            Expanded(
-                              flex: 1,
-                              child: Column(
-                                children: [
-                                  _SectionHeader(
-                                    key: skillKey,
-                                    label: "My Skills",
-                                    icon: Icons.code_outlined,
-                                  ),
-                                  const SizedBox(height: 16),
-                                  const Skills(),
-                                ],
-                              ),
-                            ),
-                          ],
-                        )
-                      else
-                        Column(
-                          children: [
-                            _SectionHeader(
-                              key: experienceKey,
-                              label: "Experience",
-                              icon: Icons.work_outline,
-                            ),
-                            const SizedBox(height: 16),
-                            const Experience(isMobile: true),
-                            const SizedBox(height: 36),
-                            _SectionHeader(
-                              key: skillKey,
-                              label: "My Skills",
-                              icon: Icons.code_outlined,
-                            ),
-                            const SizedBox(height: 16),
-                            const Skills(),
-                          ],
-                        ),
-
-                      const SizedBox(height: 36),
-
-                      // ── Stats & Metrics ─────────────────────────────────────
-                      _SectionHeader(
-                        key: statsKey,
-                        label: "Stats & Metrics",
-                        icon: Icons.bar_chart_rounded,
-                      ),
-                      const SizedBox(height: 16),
-                      StatsMetrics(isMobile: isMobile),
-                      const SizedBox(height: 36),
-
-                      // ── Achievements ────────────────────────────────────────
-                      _SectionHeader(
-                        key: achievementKey,
-                        label: "Achievements",
-                        icon: Icons.emoji_events_outlined,
-                      ),
-                      const SizedBox(height: 16),
-                      Achievements(isMobile: isMobile),
-                      const SizedBox(height: 36),
-
-                      // ── Projects ────────────────────────────────────────────
-                      _SectionHeader(
-                        key: projectKey,
-                        label: "My Projects",
-                        icon: Icons.folder_outlined,
-                      ),
-                      const SizedBox(height: 16),
-                      const Projects(),
-                      const SizedBox(height: 36),
-
-                      // ── Contact ─────────────────────────────────────────────
-                      _SectionHeader(
-                        key: contactMeKey,
-                        label: "Contact Me",
-                        icon: Icons.email_outlined,
-                      ),
-                      const SizedBox(height: 16),
-                      ContactMe(isMobile: isMobile),
-                      const SizedBox(height: 36),
-
-                      // ── Footer Badges & Copyright ─────────────────────────
-                      const SizedBox(height: 10),
-                      const Wrap(
-                        alignment: WrapAlignment.center,
-                        spacing: 10,
-                        runSpacing: 8,
+            child: ScrollConfiguration(
+              behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+              child: RawScrollbar(
+                controller: _scrollController,
+                thumbVisibility: true,
+                trackVisibility: true,
+                interactive: true,
+                thickness: isMobile ? 5.0 : 7.0,
+                radius: const Radius.circular(10),
+                thumbColor: const Color(0xCC00D9FF),
+                trackColor: const Color(0x14FFFFFF),
+                trackBorderColor: Colors.transparent,
+                trackRadius: const Radius.circular(10),
+                minThumbLength: 48,
+                padding: EdgeInsets.only(
+                  top: isMobile ? 75 : 85,
+                  bottom: isMobile ? 75 : 30,
+                  right: 3,
+                ),
+                child: SingleChildScrollView(
+                  controller: _scrollController,
+                  physics: const BouncingScrollPhysics(),
+                  padding: EdgeInsets.only(
+                    top: isMobile ? 85 : 95,
+                    bottom: 40,
+                    left: isMobile ? 10 : 20,
+                    right: isMobile ? 10 : 20,
+                  ),
+                  child: Center(
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(maxWidth: 1800),
+                      child: Column(
                         children: [
-                          _FooterBadgePill(
-                            icon: Icons.flutter_dash,
-                            label: "Made with",
-                            value: "Flutter",
-                            accentColor: Color(0xFF02569B),
+                          // ── My Profile ──────────────────────────────────────────
+                          _SectionHeader(
+                            key: myProfileKey,
+                            label: "My Profile",
+                            icon: Icons.person_outline,
                           ),
-                          _FooterBadgePill(
-                            icon: Icons.code_rounded,
-                            label: "Developed By",
-                            value: "Kartik",
-                            accentColor: Color(0xFF7B2FFE),
+                          const SizedBox(height: 16),
+                          MyProfile(isMobile: isMobile),
+                          const SizedBox(height: 36),
+
+                          // ── Experience & Skills (Side-by-Side on Desktop) ────────
+                          if (!isMobile)
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Expanded(
+                                  flex: 1,
+                                  child: Column(
+                                    children: [
+                                      _SectionHeader(
+                                        key: experienceKey,
+                                        label: "Experience",
+                                        icon: Icons.work_outline,
+                                      ),
+                                      const SizedBox(height: 16),
+                                      const Experience(isMobile: false),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(width: 20),
+                                Expanded(
+                                  flex: 1,
+                                  child: Column(
+                                    children: [
+                                      _SectionHeader(
+                                        key: skillKey,
+                                        label: "My Skills",
+                                        icon: Icons.code_outlined,
+                                      ),
+                                      const SizedBox(height: 16),
+                                      const Skills(),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            )
+                          else
+                            Column(
+                              children: [
+                                _SectionHeader(
+                                  key: experienceKey,
+                                  label: "Experience",
+                                  icon: Icons.work_outline,
+                                ),
+                                const SizedBox(height: 16),
+                                const Experience(isMobile: true),
+                                const SizedBox(height: 36),
+                                _SectionHeader(
+                                  key: skillKey,
+                                  label: "My Skills",
+                                  icon: Icons.code_outlined,
+                                ),
+                                const SizedBox(height: 16),
+                                const Skills(),
+                              ],
+                            ),
+
+                          const SizedBox(height: 36),
+
+                          // ── Stats & Metrics ─────────────────────────────────────
+                          _SectionHeader(
+                            key: statsKey,
+                            label: "Stats & Metrics",
+                            icon: Icons.bar_chart_rounded,
                           ),
-                          _FooterBadgePill(
-                            icon: Icons.coffee_rounded,
-                            label: "Fueled by",
-                            value: "Coffee ☕",
-                            accentColor: Color(0xFF6F4E37),
+                          const SizedBox(height: 16),
+                          StatsMetrics(isMobile: isMobile),
+                          const SizedBox(height: 36),
+
+                          // ── Achievements ────────────────────────────────────────
+                          _SectionHeader(
+                            key: achievementKey,
+                            label: "Achievements",
+                            icon: Icons.emoji_events_outlined,
+                          ),
+                          const SizedBox(height: 16),
+                          Achievements(isMobile: isMobile),
+                          const SizedBox(height: 36),
+
+                          // ── Projects ────────────────────────────────────────────
+                          _SectionHeader(
+                            key: projectKey,
+                            label: "My Projects",
+                            icon: Icons.folder_outlined,
+                          ),
+                          const SizedBox(height: 16),
+                          const Projects(),
+                          const SizedBox(height: 36),
+
+                          // ── Contact ─────────────────────────────────────────────
+                          _SectionHeader(
+                            key: contactMeKey,
+                            label: "Contact Me",
+                            icon: Icons.email_outlined,
+                          ),
+                          const SizedBox(height: 16),
+                          ContactMe(isMobile: isMobile),
+                          const SizedBox(height: 36),
+
+                          // ── Footer Badges & Copyright ─────────────────────────
+                          const SizedBox(height: 10),
+                          const Wrap(
+                            alignment: WrapAlignment.center,
+                            spacing: 10,
+                            runSpacing: 8,
+                            children: [
+                              _FooterBadgePill(
+                                icon: Icons.flutter_dash,
+                                label: "Made with",
+                                value: "Flutter",
+                                accentColor: Color(0xFF02569B),
+                              ),
+                              _FooterBadgePill(
+                                icon: Icons.code_rounded,
+                                label: "Developed By",
+                                value: "Kartik",
+                                accentColor: Color(0xFF7B2FFE),
+                              ),
+                              _FooterBadgePill(
+                                icon: Icons.coffee_rounded,
+                                label: "Fueled by",
+                                value: "Coffee ☕",
+                                accentColor: Color(0xFF6F4E37),
+                              ),
+                            ],
                           ),
                         ],
                       ),
-                    ],
+                    ),
                   ),
                 ),
               ),
@@ -304,6 +343,12 @@ class _HomePageState extends State<HomePage> {
             right: 0,
             child: _buildCodeHelpFloatingAppBar(context, isMobile),
           ),
+
+          // ── 4. Glowing Neon Scroll Progress Header Bar ─────────────────────
+          _buildTopProgressBar(),
+
+          // ── 5. Floating "Back to Top" Action Button (Mobile & Desktop) ──────
+          _buildBackToTopButton(isMobile),
         ],
       ),
     );
@@ -315,14 +360,14 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildCodeHelpFloatingAppBar(BuildContext context, bool isMobile) {
     final screenWidth = MediaQuery.of(context).size.width;
-    final floatingWidth = math.min(1750.0, screenWidth - (isMobile ? 20.0 : 48.0));
+    final floatingWidth = math.max(0.0, math.min(1750.0, screenWidth - (isMobile ? 20.0 : 48.0)));
 
     return SafeArea(
       child: Center(
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 350),
           curve: Curves.fastOutSlowIn,
-          width: _isScrolled ? floatingWidth : screenWidth,
+          width: math.max(0.0, _isScrolled ? floatingWidth : screenWidth),
           margin: EdgeInsets.only(
             top: _isScrolled ? 12 : 0,
           ),
@@ -362,7 +407,7 @@ class _HomePageState extends State<HomePage> {
               ),
               child: Padding(
                 padding: EdgeInsets.symmetric(
-                  horizontal: isMobile ? 16 : (_isScrolled ? 22 : 28),
+                  horizontal: isMobile ? 14 : (_isScrolled ? 22 : 28),
                 ),
                 child: Row(
                   children: [
@@ -375,29 +420,51 @@ class _HomePageState extends State<HomePage> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Container(
-                              padding: const EdgeInsets.all(7),
+                              width: isMobile ? 28 : 32,
+                              height: isMobile ? 28 : 32,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: CustomColors.primaryAccent.withOpacity(0.12),
                                 border: Border.all(
-                                  color: CustomColors.primaryAccent.withOpacity(0.3),
-                                  width: 1,
+                                  color: CustomColors.primaryAccent.withOpacity(0.5),
+                                  width: 1.5,
+                                ),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: CustomColors.primaryAccent.withOpacity(0.25),
+                                    blurRadius: 10,
+                                  ),
+                                ],
+                              ),
+                              child: ClipOval(
+                                child: Image.asset(
+                                  "assets/icons/app_icon.png",
+                                  fit: BoxFit.cover,
                                 ),
                               ),
-                              child: const Icon(
-                                Icons.code_rounded,
-                                color: CustomColors.primaryAccent,
-                                size: 16,
-                              ),
                             ),
-                            const SizedBox(width: 10),
-                            Text(
-                              "Kartik",
-                              style: GoogleFonts.inter(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w800,
-                                fontSize: 17,
-                                letterSpacing: -0.4,
+                            const SizedBox(width: 8),
+                            RichText(
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: "Kartik",
+                                    style: GoogleFonts.inter(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w800,
+                                      fontSize: isMobile ? 15.5 : 17,
+                                      letterSpacing: -0.4,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: " | Portfolio",
+                                    style: GoogleFonts.inter(
+                                      color: CustomColors.primaryAccent,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: isMobile ? 13.5 : 15,
+                                      letterSpacing: -0.2,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ],
@@ -502,6 +569,112 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  // ── Top Gradient Reading Progress Bar ─────────────────────────────────────
+  Widget _buildTopProgressBar() {
+    return Positioned(
+      top: 0,
+      left: 0,
+      right: 0,
+      child: SafeArea(
+        child: SizedBox(
+          height: 2.5,
+          child: FractionallySizedBox(
+            alignment: Alignment.centerLeft,
+            widthFactor: _scrollProgress.clamp(0.0, 1.0),
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [
+                    Color(0xFF00D9FF),
+                    Color(0xFF7B2FFE),
+                    Color(0xFFFF007F),
+                  ],
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: const Color(0xFF00D9FF).withOpacity(0.8),
+                    blurRadius: 6,
+                    spreadRadius: 1,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  // ── Floating "Back to Top" Action Button ──────────────────────────────────
+  Widget _buildBackToTopButton(bool isMobile) {
+    return AnimatedPositioned(
+      duration: const Duration(milliseconds: 350),
+      curve: Curves.fastOutSlowIn,
+      bottom: _showBackToTop ? (isMobile ? 22 : 30) : -70,
+      right: isMobile ? 16 : 24,
+      child: AnimatedOpacity(
+        duration: const Duration(milliseconds: 300),
+        opacity: _showBackToTop ? 1.0 : 0.0,
+        child: MouseRegion(
+          cursor: SystemMouseCursors.click,
+          child: GestureDetector(
+            onTap: _scrollToTop,
+            child: Container(
+              width: isMobile ? 46 : 52,
+              height: isMobile ? 46 : 52,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: const Color(0xE00C0C1E),
+                border: Border.all(
+                  color: CustomColors.primaryAccent.withOpacity(0.45),
+                  width: 1.2,
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: CustomColors.primaryAccent.withOpacity(0.35),
+                    blurRadius: 16,
+                    offset: const Offset(0, 4),
+                  ),
+                  const BoxShadow(
+                    color: Color(0x70000000),
+                    blurRadius: 12,
+                    offset: Offset(0, 4),
+                  ),
+                ],
+              ),
+              child: ClipOval(
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 14, sigmaY: 14),
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      // Progress track & ring
+                      SizedBox(
+                        width: isMobile ? 40 : 45,
+                        height: isMobile ? 40 : 45,
+                        child: CircularProgressIndicator(
+                          value: _scrollProgress,
+                          strokeWidth: 2.2,
+                          valueColor: const AlwaysStoppedAnimation<Color>(Color(0xFF00D9FF)),
+                          backgroundColor: Colors.white.withOpacity(0.08),
+                        ),
+                      ),
+                      Icon(
+                        Icons.arrow_upward_rounded,
+                        color: Colors.white,
+                        size: isMobile ? 20 : 22,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   // ── Mobile Drawer ──────────────────────────────────────────────────────────
   Widget _buildDrawer() {
     return Drawer(
@@ -524,15 +697,27 @@ class _HomePageState extends State<HomePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      padding: const EdgeInsets.all(10),
+                      width: 48,
+                      height: 48,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: CustomColors.primaryAccent.withOpacity(0.15),
                         border: Border.all(
-                          color: CustomColors.primaryAccent.withOpacity(0.3),
+                          color: CustomColors.primaryAccent.withOpacity(0.5),
+                          width: 2,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: CustomColors.primaryAccent.withOpacity(0.3),
+                            blurRadius: 14,
+                          ),
+                        ],
+                      ),
+                      child: ClipOval(
+                        child: Image.asset(
+                          "assets/icons/app_icon.png",
+                          fit: BoxFit.cover,
                         ),
                       ),
-                      child: const Icon(Icons.code_rounded, color: CustomColors.primaryAccent, size: 26),
                     ),
                     const SizedBox(height: 12),
                     Text(
